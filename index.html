@@ -1,0 +1,983 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.4">
+  <style type="text/css">
+    body {background-color: #0a0a0d}
+    p.p1 {margin: 0.0px 0.0px 12.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #ecebe5; -webkit-text-stroke: #ecebe5}
+    p.p2 {margin: 0.0px 0.0px 12.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #ecebe5; -webkit-text-stroke: #ecebe5; min-height: 15.0px}
+    span.s1 {font-kerning: none}
+    span.s2 {font: 12.0px 'Zapf Dingbats'; font-kerning: none}
+    span.s3 {font: 12.0px '.Apple Color Emoji UI'; font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="id"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;title&gt;Folluther Studio - Execution Tracker Pro&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta name="mobile-web-app-capable" content="yes"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;meta name="theme-color" content="#0a0a0f"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&amp;family=DM+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;style&gt;</span></p>
+<p class="p1"><span class="s1">:root{--bg:#0a0a0f;--surface:#12121a;--surface-hover:#1a1a26;--border:rgba(255,255,255,0.08);--amber:#f5c542;--teal:#00e5a0;--purple:#a78bfa;--red:#ff5f6d;--text:#f0efea;--muted:#62627a;--money:#4ade80}</span></p>
+<p class="p1"><span class="s1">body{font-family:'DM Mono',monospace;background-color:var(--bg);color:var(--text);background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:40px 40px;background-attachment:fixed;overscroll-behavior-y:contain}</span></p>
+<p class="p1"><span class="s1">.syne{font-family:'Syne',sans-serif}</span></p>
+<p class="p1"><span class="s1">.glass{background:var(--surface);border:1px solid var(--border);backdrop-filter:blur(10px);border-radius:1.5rem}</span></p>
+<p class="p1"><span class="s1">.checkbox-custom{width:22px;height:22px;border:2px solid var(--muted);border-radius:6px;transition:all 0.2s cubic-bezier(0.4,0,0.2,1);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.02)}</span></p>
+<p class="p1"><span class="s1">.task-item.done .checkbox-custom,.idea-card.done .checkbox-custom{background:var(--amber);border-color:var(--amber);box-shadow:0 0 15px rgba(245,197,66,0.4)}</span></p>
+<p class="p1"><span class="s1">.task-item.done .checkbox-custom::after,.idea-card.done .checkbox-custom::after{content:'✓';color:#000;font-weight:900;font-size:14px}</span></p>
+<p class="p1"><span class="s1">.task-item.done span,.idea-card.done .idea-text{color:var(--muted);text-decoration:line-through}</span></p>
+<p class="p1"><span class="s1">.income-glow{text-shadow:0 0 10px rgba(74,222,128,0.6);color:var(--money);font-weight:800}</span></p>
+<p class="p1"><span class="s1">.calendar-day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:0.65rem;border-radius:6px;cursor:pointer;border:1px solid transparent;transition:all 0.2s;line-height:1;color:var(--muted);position:relative}</span></p>
+<p class="p1"><span class="s1">.calendar-day.active{border-color:var(--amber);background:rgba(245,197,66,0.05);color:var(--amber);font-weight:bold}</span></p>
+<p class="p1"><span class="s1">.calendar-day.has-data{background:rgba(245,197,66,0.15);color:var(--amber)}</span></p>
+<p class="p1"><span class="s1">.calendar-day.today{box-shadow:inset 0 0 0 1px var(--teal);color:var(--text)}</span></p>
+<p class="p1"><span class="s1">.proj-cal-day{min-height:44px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:6px;font-size:0.65rem;border-radius:6px;cursor:pointer;border:1px solid transparent;transition:all 0.2s;line-height:1;color:var(--muted);position:relative;user-select:none}</span></p>
+<p class="p1"><span class="s1">.proj-cal-day:hover{background:rgba(255,255,255,0.05);color:var(--text);border-color:rgba(255,255,255,0.1)}</span></p>
+<p class="p1"><span class="s1">.proj-cal-day.proj-today{box-shadow:inset 0 0 0 1px var(--teal);color:var(--text)}</span></p>
+<p class="p1"><span class="s1">.proj-cal-day.proj-has-active{background:rgba(245,197,66,0.08)}</span></p>
+<p class="p1"><span class="s1">.proj-cal-day.proj-has-urgent{background:rgba(255,95,109,0.08)}</span></p>
+<p class="p1"><span class="s1">.proj-dot-row{display:flex;gap:2px;justify-content:center;margin-top:3px;flex-wrap:wrap;max-width:28px}</span></p>
+<p class="p1"><span class="s1">.proj-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}</span></p>
+<p class="p1"><span class="s1">.proj-cal-tooltip{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e1e2e;border:1px solid rgba(255,255,255,0.15);padding:4px 8px;border-radius:6px;font-size:9px;white-space:nowrap;z-index:100;pointer-events:none;opacity:0;transition:opacity 0.15s;color:var(--text)}</span></p>
+<p class="p1"><span class="s1">.proj-cal-day:hover .proj-cal-tooltip{opacity:1}</span></p>
+<p class="p1"><span class="s1">.pct-label{font-size:0.45rem;margin-top:1px;opacity:0.8;font-weight:900}</span></p>
+<p class="p1"><span class="s1">.tab-btn{border:1px solid transparent;color:var(--muted)}</span></p>
+<p class="p1"><span class="s1">.tab-btn.active{background:var(--amber);color:black;font-weight:bold;border-color:var(--amber)}</span></p>
+<p class="p1"><span class="s1">.clock-container{font-variant-numeric:tabular-nums;letter-spacing:1px}</span></p>
+<p class="p1"><span class="s1">@keyframes pulse-glow{0%{box-shadow:0 0 0 0 rgba(0,229,160,0.4)}70%{box-shadow:0 0 0 10px rgba(0,229,160,0)}100%{box-shadow:0 0 0 0 rgba(0,229,160,0)}}</span></p>
+<p class="p1"><span class="s1">.sync-active{animation:pulse-glow 2s infinite}</span></p>
+<p class="p1"><span class="s1">.custom-scrollbar::-webkit-scrollbar{width:0px;height:0px}</span></p>
+<p class="p1"><span class="s1">.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:500}</span></p>
+<p class="p1"><span class="s1">.modal-content{background:var(--surface);border:1px solid var(--border);padding:2rem;border-radius:1.5rem;width:90%;max-width:400px}</span></p>
+<p class="p1"><span class="s1">.table-log td{padding:12px 16px;background:rgba(255,255,255,0.02);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}</span></p>
+<p class="p1"><span class="s1">.swot-box{background:rgba(255,255,255,0.015);border:1px solid var(--border);border-radius:1.25rem;padding:1.25rem;transition:all 0.3s ease}</span></p>
+<p class="p1"><span class="s1">.swot-input{width:100%;background:transparent;font-size:0.75rem;line-height:1.4;height:70px;outline:none;resize:none;color:var(--text);border:none;padding-top:4px}</span></p>
+<p class="p1"><span class="s1">.swot-input::placeholder{color:rgba(255,255,255,0.1);font-style:italic}</span></p>
+<p class="p1"><span class="s1">.idea-card{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:1rem;padding:1.25rem;transition:all 0.2s cubic-bezier(0.4,0,0.2,1);cursor:pointer;position:relative}</span></p>
+<p class="p1"><span class="s1">.idea-card:hover{border-color:var(--purple);background:rgba(167,139,250,0.03);transform:translateY(-2px)}</span></p>
+<p class="p1"><span class="s1">.idea-card.done{border-color:rgba(0,229,160,0.15);background:rgba(0,229,160,0.01);opacity:0.6}</span></p>
+<p class="p1"><span class="s1">.target-label{font-size:7px;color:var(--muted);font-weight:bold;text-transform:uppercase;background:rgba(255,255,255,0.03);padding:1px 4px;border-radius:3px}</span></p>
+<p class="p1"><span class="s1">.mini-progress-bg{height:3px;width:100%;background:rgba(255,255,255,0.05);border-radius:10px;margin-top:4px;overflow:hidden}</span></p>
+<p class="p1"><span class="s1">.mini-progress-fill{height:100%;background:var(--money);width:0%;transition:width 0.8s ease-in-out}</span></p>
+<p class="p1"><span class="s1">.ref-link-btn{display:inline-flex;align-items:center;gap:4px;background:rgba(167,139,250,0.1);color:var(--purple);font-size:9px;font-weight:700;padding:4px 8px;border-radius:6px;margin-top:8px;border:1px solid rgba(167,139,250,0.2);transition:all 0.2s}</span></p>
+<p class="p1"><span class="s1">.ref-link-btn:hover{background:var(--purple);color:#000}</span></p>
+<p class="p1"><span class="s1">.prompt-card{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:1.25rem;padding:1.5rem;transition:all 0.2s}</span></p>
+<p class="p1"><span class="s1">.prompt-card:hover{border-color:var(--teal);background:rgba(0,229,160,0.02)}</span></p>
+<p class="p1"><span class="s1">.prompt-title{font-family:'Syne',sans-serif;font-weight:800;color:var(--teal);text-transform:uppercase;letter-spacing:1px;font-size:11px}</span></p>
+<p class="p1"><span class="s1">.prompt-content{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);line-height:1.6;white-space:pre-wrap}</span></p>
+<p class="p1"><span class="s1">.insight-highlight-card{background:linear-gradient(135deg,rgba(167,139,250,0.05) 0%,transparent 100%);border:1px solid var(--border);border-radius:1.5rem;padding:2rem}</span></p>
+<p class="p1"><span class="s1">#review-month-selector{color:var(--purple)!important;font-weight:800!important;letter-spacing:1px;background-color:transparent;border:none;cursor:pointer}</span></p>
+<p class="p1"><span class="s1">#review-month-selector option{background:#12121a;color:var(--purple)}</span></p>
+<p class="p1"><span class="s1">.stat-grid-card{background:rgba(255,255,255,0.02);border:1px solid var(--border);padding:1.5rem;border-radius:1.25rem;display:flex;flex-direction:column;justify-content:center}</span></p>
+<p class="p1"><span class="s1">.stat-label{font-size:8px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}</span></p>
+<p class="p1"><span class="s1">.stat-value{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800}</span></p>
+<p class="p1"><span class="s1">.week-review-card{background:rgba(255,255,255,0.015);border:1px solid var(--border);border-radius:1.5rem;padding:1.5rem;margin-bottom:1.5rem}</span></p>
+<p class="p1"><span class="s1">.btn-delete{background:rgba(255,95,109,0.1);color:var(--red);border:1px solid rgba(255,95,109,0.2);font-size:9px;font-weight:800;padding:4px 8px;border-radius:6px;transition:all 0.2s;cursor:pointer}</span></p>
+<p class="p1"><span class="s1">.btn-delete:hover{background:var(--red);color:#000}</span></p>
+<p class="p1"><span class="s1">.idea-number{font-family:'Syne',sans-serif;font-weight:800;font-size:12px;color:var(--muted);margin-right:8px;min-width:20px}</span></p>
+<p class="p1"><span class="s1">.count-badge{background:rgba(255,255,255,0.05);color:var(--muted);padding:2px 8px;border-radius:6px;font-size:10px;font-weight:900;margin-left:10px;border:1px solid var(--border)}</span></p>
+<p class="p1"><span class="s1">input[type="date"]{color-scheme:dark}</span></p>
+<p class="p1"><span class="s1">.proj-badge{font-size:7px;font-weight:900;padding:2px 6px;border-radius:4px;text-transform:uppercase;white-space:nowrap}</span></p>
+<p class="p1"><span class="s1">.proj-badge-urgent{background:rgba(255,95,109,0.15);color:var(--red);border:1px solid rgba(255,95,109,0.3)}</span></p>
+<p class="p1"><span class="s1">.proj-badge-active{background:rgba(245,197,66,0.15);color:var(--amber);border:1px solid rgba(245,197,66,0.3)}</span></p>
+<p class="p1"><span class="s1">.proj-badge-late{background:rgba(255,95,109,0.2);color:#fff;border:1px solid var(--red)}</span></p>
+<p class="p1"><span class="s1">@keyframes blink{0%,100%{opacity:1}50%{opacity:0.4}}</span></p>
+<p class="p1"><span class="s1">.proj-badge-blink{animation:blink 1.2s ease-in-out infinite}</span></p>
+<p class="p1"><span class="s1">.proj-card{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:1rem;padding:1.25rem;transition:all 0.2s}</span></p>
+<p class="p1"><span class="s1">.proj-card:hover{transform:translateY(-1px)}</span></p>
+<p class="p1"><span class="s1">.proj-card-active{border-left:3px solid var(--amber)}</span></p>
+<p class="p1"><span class="s1">.proj-card-urgent{border-left:3px solid var(--red)}</span></p>
+<p class="p1"><span class="s1">.proj-card-done{opacity:0.55;border-left:3px solid var(--teal)}</span></p>
+<p class="p1"><span class="s1">.proj-deadline-bar-bg{height:4px;width:100%;background:rgba(255,255,255,0.05);border-radius:10px;overflow:hidden;margin-top:4px}</span></p>
+<p class="p1"><span class="s1">.proj-deadline-bar-fill{height:100%;border-radius:10px;transition:width 0.6s ease}</span></p>
+<p class="p1"><span class="s1">/* ===== BRAND REACH ===== */</span></p>
+<p class="p1"><span class="s1">.table-brand{width:100%;border-collapse:separate;border-spacing:0 4px}</span></p>
+<p class="p1"><span class="s1">.table-brand th{font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:2px;color:var(--muted);padding:8px 12px;cursor:pointer;user-select:none;text-align:left}</span></p>
+<p class="p1"><span class="s1">.table-brand th:hover{color:var(--teal)}</span></p>
+<p class="p1"><span class="s1">.table-brand td{padding:10px 12px;background:rgba(255,255,255,0.02);font-size:11px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}</span></p>
+<p class="p1"><span class="s1">.table-brand td:first-child{border-left:1px solid var(--border);border-radius:8px 0 0 8px}</span></p>
+<p class="p1"><span class="s1">.table-brand td:last-child{border-right:1px solid var(--border);border-radius:0 8px 8px 0}</span></p>
+<p class="p1"><span class="s1">.table-brand tr:hover td{background:rgba(255,255,255,0.04)}</span></p>
+<p class="p1"><span class="s1">.br-badge{font-size:7px;font-weight:900;padding:3px 7px;border-radius:4px;text-transform:uppercase;white-space:nowrap;display:inline-block}</span></p>
+<p class="p1"><span class="s1">.br-s-new{background:rgba(167,139,250,0.15);color:var(--purple);border:1px solid rgba(167,139,250,0.3)}</span></p>
+<p class="p1"><span class="s1">.br-s-contacted{background:rgba(59,130,246,0.15);color:#60a5fa;border:1px solid rgba(59,130,246,0.3)}</span></p>
+<p class="p1"><span class="s1">.br-s-follow{background:rgba(245,197,66,0.15);color:var(--amber);border:1px solid rgba(245,197,66,0.3)}</span></p>
+<p class="p1"><span class="s1">.br-s-replied{background:rgba(0,229,160,0.15);color:var(--teal);border:1px solid rgba(0,229,160,0.3)}</span></p>
+<p class="p1"><span class="s1">.br-s-closed{background:rgba(74,222,128,0.15);color:var(--money);border:1px solid rgba(74,222,128,0.3)}</span></p>
+<p class="p1"><span class="s1">.br-s-rejected{background:rgba(255,95,109,0.15);color:var(--red);border:1px solid rgba(255,95,109,0.3)}</span></p>
+<p class="p1"><span class="s1">.br-s-ghost{background:rgba(98,98,122,0.15);color:var(--muted);border:1px solid rgba(98,98,122,0.3)}</span></p>
+<p class="p1"><span class="s1">/* brand reach calendar */</span></p>
+<p class="p1"><span class="s1">.br-cal-day{min-height:42px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:5px;font-size:0.65rem;border-radius:6px;cursor:pointer;border:1px solid transparent;transition:all 0.2s;line-height:1;color:var(--muted);position:relative;user-select:none}</span></p>
+<p class="p1"><span class="s1">.br-cal-day:hover{background:rgba(255,255,255,0.05);color:var(--text);border-color:rgba(255,255,255,0.1)}</span></p>
+<p class="p1"><span class="s1">.br-cal-day.br-today{box-shadow:inset 0 0 0 1px var(--teal);color:var(--text)}</span></p>
+<p class="p1"><span class="s1">.br-cal-day.br-has-reach{background:rgba(0,229,160,0.09)}</span></p>
+<p class="p1"><span class="s1">.br-cal-day.br-has-follow{background:rgba(245,197,66,0.11)}</span></p>
+<p class="p1"><span class="s1">.br-cal-day.br-has-overdue{background:rgba(255,95,109,0.14)}</span></p>
+<p class="p1"><span class="s1">.br-dot-row{display:flex;gap:2px;justify-content:center;margin-top:3px;flex-wrap:wrap;max-width:28px}</span></p>
+<p class="p1"><span class="s1">.br-dot{width:4px;height:4px;border-radius:50%;flex-shrink:0}</span></p>
+<p class="p1"><span class="s1">.br-cal-tooltip{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e1e2e;border:1px solid rgba(255,255,255,0.15);padding:4px 8px;border-radius:6px;font-size:9px;white-space:nowrap;z-index:100;pointer-events:none;opacity:0;transition:opacity 0.15s;color:var(--text)}</span></p>
+<p class="p1"><span class="s1">.br-cal-day:hover .br-cal-tooltip{opacity:1}</span></p>
+<p class="p1"><span class="s1">/* filter pills */</span></p>
+<p class="p1"><span class="s1">.filter-pill{font-size:9px;font-weight:900;padding:5px 11px;border-radius:20px;border:1px solid var(--border);cursor:pointer;transition:all 0.15s;color:var(--muted);background:rgba(255,255,255,0.02);text-transform:uppercase;white-space:nowrap}</span></p>
+<p class="p1"><span class="s1">.filter-pill.active{background:var(--teal);color:#000;border-color:var(--teal)}</span></p>
+<p class="p1"><span class="s1">/* brand form modal */</span></p>
+<p class="p1"><span class="s1">.br-modal-box{background:var(--surface);border:1px solid var(--border);padding:2rem;border-radius:1.5rem;width:90%;max-width:540px;max-height:90vh;overflow-y:auto}</span></p>
+<p class="p1"><span class="s1">@keyframes br-pulse{0%,100%{opacity:1}50%{opacity:0.25}}</span></p>
+<p class="p1"><span class="s1">.br-overdue-anim{animation:br-pulse 1.4s ease-in-out infinite;color:var(--red)!important;font-weight:900}</span></p>
+<p class="p1"><span class="s1">.br-overdue-row td{background:rgba(255,95,109,0.04)!important}</span></p>
+<p class="p1"><span class="s1">&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body class="min-h-screen p-4 md:p-8 pb-12"&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;!-- Modal: Identity --&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div id="name-modal" class="modal-overlay"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="modal-content space-y-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h3 class="syne font-bold text-amber-400 uppercase tracking-widest text-center"&gt;Update Identity&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;input type="text" id="new-alias-input" maxlength="20" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-amber-400 text-center" placeholder="Folluther_Agent"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="flex gap-2"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button id="btn-save-alias" class="flex-1 bg-amber-400 text-black syne font-bold py-2 rounded-xl text-xs uppercase"&gt;Save&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button onclick="closeModal()" class="flex-1 bg-white/5 syne font-bold py-2 rounded-xl text-xs uppercase"&gt;Cancel&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;!-- Modal: Brand Reach Form --&gt;</span></p>
+<p class="p1"><span class="s1">&lt;div id="br-form-modal" class="modal-overlay"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="br-modal-box space-y-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="flex justify-between items-center border-b border-white/5 pb-3"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;h3 id="br-form-title" class="syne font-bold text-teal-400 uppercase tracking-widest text-sm"&gt;TAMBAH BRAND&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button onclick="br_closeForm()" class="text-muted hover:text-red-400 text-xl font-bold leading-none"&gt;</span><span class="s2">✕</span><span class="s1">&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;input type="hidden" id="br-edit-id"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-3"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="md:col-span-2"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="br-f-name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-teal-400" placeholder="Brand / Company Name *"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;input type="text" id="br-f-person" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-teal-400" placeholder="Contact Person"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;input type="text" id="br-f-loc" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-teal-400" placeholder="Location / City"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="space-y-1"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label class="text-[8px] font-bold text-purple-400 uppercase tracking-widest"&gt;Website URL&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="br-f-website" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-purple-400" placeholder="https://brand.com"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="space-y-1"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label class="text-[8px] font-bold text-purple-400 uppercase tracking-widest"&gt;Instagram URL&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="br-f-instagram" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-purple-400" placeholder="https://instagram.com/brand"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;input type="text" id="br-f-contact" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-teal-400" placeholder="WhatsApp / Email"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="space-y-1"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label class="text-[8px] font-bold text-muted uppercase tracking-widest"&gt;Status&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;select id="br-f-status" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-teal-400 text-text"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;option value="new" style="background:#12121a"&gt;</span><span class="s3">🔵</span><span class="s1"> New&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;option value="contacted" style="background:#12121a"&gt;</span><span class="s3">📤</span><span class="s1"> Contacted&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;option value="follow" style="background:#12121a"&gt;</span><span class="s3">🔔</span><span class="s1"> Follow-up&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;option value="replied" style="background:#12121a"&gt;</span><span class="s3">💬</span><span class="s1"> Replied&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;option value="closed" style="background:#12121a"&gt;</span><span class="s3">✅</span><span class="s1"> Closed / Deal&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;option value="rejected" style="background:#12121a"&gt;</span><span class="s3">❌</span><span class="s1"> Rejected&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;option value="ghost" style="background:#12121a"&gt;</span><span class="s3">👻</span><span class="s1"> Ghost&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/select&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="space-y-1"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label class="text-[8px] font-bold text-muted uppercase tracking-widest"&gt;Tanggal Reach Out&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="date" id="br-f-date" oninput="br_autoFollow()" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-teal-400"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="md:col-span-2 space-y-1"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label class="text-[8px] font-bold text-amber-400 uppercase tracking-widest"&gt;Follow-up Date &lt;span class="text-muted normal-case font-normal"&gt;(otomatis +4 hari)&lt;/span&gt;&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="date" id="br-f-follow" class="w-full bg-white/5 border border-amber-400/30 rounded-xl px-4 py-3 text-xs outline-none focus:border-amber-400"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="md:col-span-2 space-y-1"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;label class="text-[8px] font-bold text-muted uppercase tracking-widest"&gt;Notes&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;textarea id="br-f-notes" rows="2" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-teal-400 resize-none" placeholder="Budget, kebutuhan, info penting..."&gt;&lt;/textarea&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="flex gap-3 pt-1"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button onclick="br_saveForm()" class="flex-1 bg-teal-400 text-black syne font-black py-3 rounded-xl text-xs uppercase tracking-widest active:scale-95 transition-all"&gt;SIMPAN&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button onclick="br_closeForm()" class="bg-white/5 border border-white/10 px-6 py-3 rounded-xl text-xs uppercase font-bold hover:bg-white/10"&gt;Batal&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;div class="max-w-5xl mx-auto space-y-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- HEADER --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;header class="border-b-2 border-white/5 pb-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="space-y-2"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="flex items-center gap-4 mb-1"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;p class="text-[10px] tracking-[0.3em] text-amber-400 font-bold uppercase"&gt;FOLLUTHER STUDIO - 2026&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;span id="day-badge" class="syne bg-[#f5c542] text-black px-3 py-0.5 rounded font-black text-[9px] tracking-tighter uppercase"&gt;DAY 1&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h1 class="syne text-5xl md:text-6xl font-extrabold leading-none uppercase"&gt;EXECUTION&lt;br&gt;&lt;span class="text-[#f5c542]"&gt;TRACKER&lt;/span&gt;&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="clock-container flex gap-4 pt-2"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="flex flex-col"&gt;&lt;span class="text-[9px] text-muted uppercase tracking-widest font-bold"&gt;Jakarta (WIB)&lt;/span&gt;&lt;span id="clock-jkt" class="text-sm font-bold text-teal-400"&gt;00:00:00&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="border-l border-white/10 pl-4 flex flex-col"&gt;&lt;span class="text-[9px] text-muted uppercase tracking-widest font-bold"&gt;New York (USA)&lt;/span&gt;&lt;span id="clock-usa" class="text-sm font-bold text-amber-400"&gt;00:00:00&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="flex flex-col md:flex-row items-center justify-between gap-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="flex w-full md:w-auto gap-2 overflow-x-auto custom-scrollbar pb-1"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button id="btn-daily" onclick="setView('daily')" class="tab-btn whitespace-nowrap px-5 py-2 rounded-xl text-[10px] uppercase transition-all active"&gt;DAILY TRACKER&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button id="btn-project" onclick="setView('project')" class="tab-btn whitespace-nowrap px-5 py-2 rounded-xl text-[10px] uppercase transition-all"&gt;PROJECT TRACKER&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button id="btn-brandreach" onclick="setView('brandreach')" class="tab-btn whitespace-nowrap px-5 py-2 rounded-xl text-[10px] uppercase transition-all"&gt;BRAND REACH&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button id="btn-review" onclick="setView('review')" class="tab-btn whitespace-nowrap px-5 py-2 rounded-xl text-[10px] uppercase transition-all"&gt;REVIEW DASHBOARD&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button id="btn-ideas" onclick="setView('ideas')" class="tab-btn whitespace-nowrap px-5 py-2 rounded-xl text-[10px] uppercase transition-all"&gt;BRAIN DUMP&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button id="btn-strategy" onclick="setView('strategy')" class="tab-btn whitespace-nowrap px-5 py-2 rounded-xl text-[10px] uppercase transition-all"&gt;STRATEGY&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button id="btn-prompts" onclick="setView('prompts')" class="tab-btn whitespace-nowrap px-5 py-2 rounded-xl text-[10px] uppercase transition-all"&gt;BANK PROMPT&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button id="btn-insights" onclick="setView('insights')" class="tab-btn whitespace-nowrap px-5 py-2 rounded-xl text-[10px] uppercase transition-all"&gt;INSIGHTS&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="flex items-center gap-6 pr-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="flex items-center gap-3"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div id="sync-indicator" class="w-2 h-2 rounded-full bg-teal-500 opacity-50"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div onclick="openModal()" class="cursor-pointer group flex items-center gap-2 border-l border-white/10 pl-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p id="user-id-display" class="text-[10px] text-amber-400 font-bold uppercase tracking-widest group-hover:underline"&gt;Folluther_Agent&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;svg class="text-muted group-hover:text-amber-400" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"&gt;&lt;path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/&gt;&lt;path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/&gt;&lt;/svg&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/header&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- =================== VIEW: DAILY TRACKER =================== --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div id="view-daily" class="space-y-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="glass p-5 border-l-4 border-l-money overflow-hidden"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="flex justify-between items-start md:items-center"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div&gt;&lt;h3 class="syne text-[10px] font-bold uppercase tracking-[0.2em] text-money mb-0.5"&gt;REVENUE GOAL PROGRESS&lt;/h3&gt;&lt;p class="text-[11px] font-bold text-text"&gt;&lt;span id="total-revenue-accumulated" class="income-glow"&gt;$0.00&lt;/span&gt; &lt;span class="text-muted mx-1"&gt;/&lt;/span&gt; &lt;span class="text-slate-500"&gt;$50,000.00&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="text-right"&gt;&lt;p id="goal-pct-display" class="syne text-2xl font-black text-money leading-tight"&gt;0.0%&lt;/p&gt;&lt;p id="remaining-target-display" class="text-[9px] text-amber-400 font-bold uppercase tracking-tighter"&gt;REMAINING: $50,000&lt;/p&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/10 p-0.5 mt-2"&gt;&lt;div id="goal-progress-bar" class="h-full bg-gradient-to-r from-money to-teal-400 w-0 transition-all duration-1000 shadow-[0_0_10px_rgba(74,222,128,0.2)]"&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="glass p-6 overflow-hidden"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="flex items-center justify-between mb-6 border-b border-white/5 pb-3"&gt;&lt;h3 class="syne text-[10px] font-bold uppercase tracking-[0.2em] text-amber-400"&gt;QUARTERLY ROADMAP&lt;/h3&gt;&lt;button onclick="jumpToToday()" class="text-[9px] bg-white/5 hover:bg-white/10 px-3 py-1 rounded-full border border-white/10 uppercase font-bold"&gt;Today&lt;/button&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div id="calendar-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="grid grid-cols-1 lg:grid-cols-12 gap-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="lg:col-span-3 glass p-6 flex flex-col items-center justify-center"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="relative w-32 h-32"&gt;&lt;canvas id="mainRing"&gt;&lt;/canvas&gt;&lt;div class="absolute inset-0 flex flex-col items-center justify-center text-center"&gt;&lt;span id="total-pct" class="syne text-3xl font-extrabold leading-none"&gt;0%&lt;/span&gt;&lt;span class="text-[8px] uppercase tracking-widest text-slate-500 mt-1 font-bold"&gt;DONE&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;p id="date-display" class="text-[9px] text-amber-400 font-bold uppercase tracking-widest mt-4 text-center"&gt;&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="lg:col-span-9 glass p-6 flex flex-col"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="flex justify-between items-center mb-4"&gt;&lt;h3 class="syne text-[10px] font-bold uppercase tracking-[0.2em] text-purple-400"&gt;MONTHLY SPIRIT GRAPH&lt;/h3&gt;&lt;span id="consistency-val" class="text-[10px] font-black text-purple-400"&gt;0% AVG&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="flex-1 min-h-[150px] relative"&gt;&lt;canvas id="spiritChart"&gt;&lt;/canvas&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="bg-white/5 border border-white/5 rounded-2xl p-5 flex justify-between items-center"&gt;&lt;p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest"&gt;OUTREACH&lt;/p&gt;&lt;p id="stat-outreach" class="syne text-2xl font-bold text-amber-400"&gt;0/20&lt;/p&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="bg-white/5 border border-white/5 rounded-2xl p-5 flex justify-between items-center"&gt;&lt;p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest"&gt;CREATION&lt;/p&gt;&lt;p id="stat-design" class="syne text-2xl font-bold text-teal-400"&gt;0/4&lt;/p&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="bg-white/5 border border-white/5 rounded-2xl p-5 flex justify-between items-center"&gt;&lt;p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest"&gt;CLOSING&lt;/p&gt;&lt;p id="stat-closing" class="syne text-2xl font-bold text-purple-400"&gt;0/1&lt;/p&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6" id="task-container"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="glass p-6"&gt;&lt;h3 class="syne text-[11px] font-bold uppercase mb-4 text-amber-400 tracking-widest border-b border-white/5 pb-2"&gt;REVENUE ENGINES&lt;/h3&gt;&lt;div class="space-y-2" id="cat-money"&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="glass p-6"&gt;&lt;h3 class="syne text-[11px] font-bold uppercase mb-4 text-teal-400 tracking-widest border-b border-white/5 pb-2"&gt;CREATION LOOP&lt;/h3&gt;&lt;div class="space-y-2" id="cat-creation"&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="glass p-6"&gt;&lt;h3 class="syne text-[11px] font-bold uppercase mb-4 text-purple-400 tracking-widest border-b border-white/5 pb-2"&gt;GROWTH &amp;amp; SKILL&lt;/h3&gt;&lt;div class="space-y-2" id="cat-growth"&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="glass p-6"&gt;&lt;h3 class="syne text-[11px] font-bold uppercase mb-4 text-red-400 tracking-widest border-b border-white/5 pb-2"&gt;SYSTEM AUDIT&lt;/h3&gt;&lt;div class="space-y-2" id="cat-system"&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="space-y-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="glass p-6 border-l-4 border-l-[#4ade80]"&gt;&lt;h3 class="syne text-[11px] font-bold uppercase mb-4 tracking-widest"&gt;INCOME LOG&lt;/h3&gt;&lt;div class="relative"&gt;&lt;span class="absolute left-4 top-1/2 -translate-y-1/2 text-muted font-bold"&gt;$&lt;/span&gt;&lt;input type="number" id="daily-income" oninput="saveIncome()" class="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-8 pr-4 text-sm font-bold outline-none focus:border-money" placeholder="0.00"&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="glass p-6 flex flex-col h-full min-h-[350px]"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="flex justify-between mb-4"&gt;&lt;p id="introspection-label" class="text-[10px] uppercase text-slate-500 font-bold tracking-wider"&gt;INTROSPECTION&lt;/p&gt;&lt;span id="save-status" class="text-[9px] text-green-500 opacity-0 uppercase font-bold tracking-tighter"&gt;SYNCED&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;textarea id="notes" oninput="saveNotes()" class="flex-1 bg-white/5 border border-white/10 rounded-2xl p-4 text-xs outline-none focus:border-amber-400/50 resize-none custom-scrollbar" placeholder="Lessons today?"&gt;&lt;/textarea&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="grid grid-cols-2 gap-2 mt-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button onclick="manualSave()" class="bg-amber-400 text-black py-3 rounded-lg text-[10px] uppercase font-extrabold active:scale-95 transition-all"&gt;FORCE SYNC&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button onclick="resetDay()" class="bg-white/5 border border-white/10 py-3 rounded-lg text-[10px] uppercase font-extrabold text-red-400 active:scale-95 transition-all"&gt;RESET&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- =================== VIEW: PROJECT TRACKER =================== --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div id="view-project" class="hidden space-y-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="glass p-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;h3 class="syne text-xs font-bold text-amber-400 uppercase mb-6 tracking-widest border-b border-white/5 pb-2"&gt;NEW PROJECT&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="proj-input-name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-amber-400" placeholder="Project Name *"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="proj-input-brand" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-amber-400" placeholder="Brand / Company *"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="proj-input-website" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-amber-400" placeholder="Website URL"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="proj-input-instagram" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-amber-400" placeholder="Instagram Handle URL"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="proj-input-owner" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-amber-400" placeholder="Owner / Founder"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="proj-input-contact" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-amber-400" placeholder="Contact / WhatsApp"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="space-y-1"&gt;&lt;label class="text-[8px] font-bold text-muted uppercase tracking-widest"&gt;Project Start&lt;/label&gt;&lt;input type="date" id="proj-input-start" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-amber-400"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="space-y-1"&gt;&lt;label class="text-[8px] font-bold text-muted uppercase tracking-widest"&gt;Project Deadline&lt;/label&gt;&lt;input type="date" id="proj-input-deadline" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-xs outline-none focus:border-amber-400"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button onclick="proj_addProject()" class="w-full bg-amber-400 text-black py-4 rounded-xl syne font-black text-xs uppercase tracking-widest active:scale-[0.98] transition-all mt-4"&gt;+ CREATE PROJECT&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="glass p-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h3 class="syne text-xs font-bold text-teal-400 uppercase tracking-widest"&gt;PROJECT CALENDAR&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="flex flex-wrap items-center gap-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="flex gap-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="flex items-center gap-1.5"&gt;&lt;span class="w-2 h-2 rounded-full bg-amber-400 inline-block"&gt;&lt;/span&gt;&lt;span class="text-[8px] text-muted font-bold uppercase"&gt;Active&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="flex items-center gap-1.5"&gt;&lt;span class="w-2 h-2 rounded-full bg-teal-400 inline-block"&gt;&lt;/span&gt;&lt;span class="text-[8px] text-muted font-bold uppercase"&gt;Selesai&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="flex items-center gap-1.5"&gt;&lt;span class="w-2 h-2 rounded-full bg-red-400 inline-block"&gt;&lt;/span&gt;&lt;span class="text-[8px] text-muted font-bold uppercase"&gt;Urgent&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="flex items-center gap-3 border-l border-white/10 pl-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button id="proj-cal-prev" class="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-muted hover:text-amber-400 transition-all text-xs font-bold"&gt;&amp;#9664;&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;span id="proj-cal-title" class="syne text-[11px] font-bold text-amber-400 uppercase min-w-[120px] text-center"&gt;&amp;#8212; &amp;#8212;&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button id="proj-cal-next" class="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-muted hover:text-amber-400 transition-all text-xs font-bold"&gt;&amp;#9654;&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="grid grid-cols-7 gap-1 mb-1"&gt;&lt;div class="text-center py-1 text-[8px] font-black text-muted uppercase"&gt;Sen&lt;/div&gt;&lt;div class="text-center py-1 text-[8px] font-black text-muted uppercase"&gt;Sel&lt;/div&gt;&lt;div class="text-center py-1 text-[8px] font-black text-muted uppercase"&gt;Rab&lt;/div&gt;&lt;div class="text-center py-1 text-[8px] font-black text-muted uppercase"&gt;Kam&lt;/div&gt;&lt;div class="text-center py-1 text-[8px] font-black text-muted uppercase"&gt;Jum&lt;/div&gt;&lt;div class="text-center py-1 text-[8px] font-black text-muted uppercase"&gt;Sab&lt;/div&gt;&lt;div class="text-center py-1 text-[8px] font-black text-muted uppercase"&gt;Min&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div id="proj-calendar-grid" class="grid grid-cols-7 gap-1"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="glass p-6 flex flex-col" style="min-height:280px;"&gt;&lt;h3 class="syne text-xs font-bold text-muted uppercase mb-4 tracking-widest"&gt;PROJECT TIMELINE&lt;/h3&gt;&lt;div class="flex-1 relative"&gt;&lt;canvas id="proj-gantt-chart"&gt;&lt;/canvas&gt;&lt;/div&gt;&lt;p id="proj-gantt-empty" class="text-[10px] text-muted text-center py-8 hidden"&gt;Belum ada project aktif&lt;/p&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="glass p-6 flex flex-col items-center" style="min-height:280px;"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h3 class="syne text-xs font-bold text-muted uppercase mb-4 tracking-widest w-full"&gt;STATUS OVERVIEW&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="relative w-36 h-36 flex-shrink-0"&gt;&lt;canvas id="proj-status-chart"&gt;&lt;/canvas&gt;&lt;div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"&gt;&lt;span id="proj-total-count" class="syne text-3xl font-black leading-none"&gt;0&lt;/span&gt;&lt;span class="text-[7px] text-muted font-bold uppercase mt-1"&gt;Projects&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="flex justify-center gap-8 mt-5 w-full"&gt;&lt;div class="text-center"&gt;&lt;p class="text-[7px] text-muted font-bold uppercase mb-1"&gt;Active&lt;/p&gt;&lt;p id="proj-stat-active" class="syne text-lg font-bold text-amber-400"&gt;0&lt;/p&gt;&lt;/div&gt;&lt;div class="text-center"&gt;&lt;p class="text-[7px] text-muted font-bold uppercase mb-1"&gt;Selesai&lt;/p&gt;&lt;p id="proj-stat-complete" class="syne text-lg font-bold text-teal-400"&gt;0&lt;/p&gt;&lt;/div&gt;&lt;div class="text-center"&gt;&lt;p class="text-[7px] text-muted font-bold uppercase mb-1"&gt;Urgent&lt;/p&gt;&lt;p id="proj-stat-urgent" class="syne text-lg font-bold text-red-400"&gt;0&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="space-y-4"&gt;&lt;div class="flex items-center px-1"&gt;&lt;p class="text-[9px] font-black text-amber-400 uppercase tracking-[0.3em]"&gt;Active Projects&lt;/p&gt;&lt;span id="proj-active-count" class="count-badge"&gt;0&lt;/span&gt;&lt;/div&gt;&lt;div id="proj-active-container" class="space-y-3"&gt;&lt;/div&gt;&lt;p id="proj-active-empty" class="text-[10px] text-muted text-center py-6 hidden"&gt;Belum ada project aktif. Buat project baru di atas.&lt;/p&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="mt-8 space-y-4"&gt;&lt;div class="flex items-center px-1"&gt;&lt;p class="text-[9px] font-black text-money uppercase tracking-[0.3em]"&gt;Completed Projects&lt;/p&gt;&lt;span id="proj-complete-count" class="count-badge"&gt;0&lt;/span&gt;&lt;/div&gt;&lt;div id="proj-complete-container" class="space-y-3"&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- =================== VIEW: BRAND REACH =================== --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div id="view-brandreach" class="hidden space-y-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Stats row --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="grid grid-cols-2 md:grid-cols-4 gap-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="stat-grid-card"&gt;&lt;span class="stat-label"&gt;Total Brands&lt;/span&gt;&lt;span id="br-stat-total" class="stat-value text-text"&gt;0&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="stat-grid-card"&gt;&lt;span class="stat-label"&gt;Contacted&lt;/span&gt;&lt;span id="br-stat-contacted" class="stat-value text-blue-400"&gt;0&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="stat-grid-card"&gt;&lt;span class="stat-label"&gt;Follow-up Due&lt;/span&gt;&lt;span id="br-stat-follow" class="stat-value text-amber-400"&gt;0&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="stat-grid-card"&gt;&lt;span class="stat-label"&gt;Closed / Deal&lt;/span&gt;&lt;span id="br-stat-closed" class="stat-value text-money"&gt;0&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Outreach Calendar --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="glass p-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-5"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;h3 class="syne text-xs font-bold text-teal-400 uppercase tracking-widest"&gt;OUTREACH CALENDAR&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;p class="text-[8px] text-muted font-bold uppercase mt-1"&gt;Teal = Reach Out &amp;nbsp;&amp;#183;&amp;nbsp; Amber = Follow-up &amp;nbsp;&amp;#183;&amp;nbsp; Red = Follow-up Overdue&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="flex items-center gap-3"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button id="br-cal-prev" class="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-muted hover:text-teal-400 transition-all text-xs font-bold"&gt;&amp;#9664;&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;span id="br-cal-title" class="syne text-[11px] font-bold text-teal-400 uppercase min-w-[120px] text-center"&gt;&amp;#8212; &amp;#8212;&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button id="br-cal-next" class="w-7 h-7 flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-muted hover:text-teal-400 transition-all text-xs font-bold"&gt;&amp;#9654;&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="grid grid-cols-7 gap-1 mb-1"&gt;&lt;div class="text-center py-1 text-[8px] font-black text-muted uppercase"&gt;Sen&lt;/div&gt;&lt;div class="text-center py-1 text-[8px] font-black text-muted uppercase"&gt;Sel&lt;/div&gt;&lt;div class="text-center py-1 text-[8px] font-black text-muted uppercase"&gt;Rab&lt;/div&gt;&lt;div class="text-center py-1 text-[8px] font-black text-muted uppercase"&gt;Kam&lt;/div&gt;&lt;div class="text-center py-1 text-[8px] font-black text-muted uppercase"&gt;Jum&lt;/div&gt;&lt;div class="text-center py-1 text-[8px] font-black text-muted uppercase"&gt;Sab&lt;/div&gt;&lt;div class="text-center py-1 text-[8px] font-black text-muted uppercase"&gt;Min&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div id="br-calendar-grid" class="grid grid-cols-7 gap-1"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Database Table --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="glass p-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="flex flex-col gap-4 mb-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="flex flex-col gap-1"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="flex items-center gap-3"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;h3 class="syne text-xs font-bold text-teal-400 uppercase tracking-widest"&gt;Brand Outreach Database&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="text-[9px] bg-red-500/10 text-red-500 border border-red-500/20 px-2 py-0.5 rounded font-black uppercase hidden" id="br-warning-badge"&gt;&amp;#9888; Attention Required&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p class="text-[8px] text-muted font-bold uppercase"&gt;Skala bisnismu diukur dari jumlah jabat tangan digital.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="flex flex-wrap gap-2 w-full md:w-auto"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="br-search" oninput="brand_renderTable()" class="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-[10px] outline-none focus:border-teal-400 min-w-[150px]" placeholder="Search brands..."&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;select id="br-loc-filter" onchange="brand_renderTable()" class="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-[10px] outline-none text-muted focus:border-purple-400 min-w-[120px]"&gt;&lt;option value="all"&gt;Semua Lokasi&lt;/option&gt;&lt;/select&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button onclick="br_openForm()" class="bg-teal-400 text-black px-4 py-2 rounded-xl text-[10px] syne font-black uppercase tracking-widest active:scale-95 transition-all shadow-[0_0_15px_rgba(0,229,160,0.2)]"&gt;+ TAMBAH&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- Status filter pills --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="flex flex-wrap gap-2"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button class="filter-pill active" data-fp="all" onclick="br_setFilter('all')"&gt;Semua&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button class="filter-pill" data-fp="new" onclick="br_setFilter('new')"&gt;&amp;#128309; New&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button class="filter-pill" data-fp="contacted" onclick="br_setFilter('contacted')"&gt;&amp;#128228; Contacted&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button class="filter-pill" data-fp="follow" onclick="br_setFilter('follow')"&gt;&amp;#128276; Follow-up&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button class="filter-pill" data-fp="replied" onclick="br_setFilter('replied')"&gt;&amp;#128172; Replied&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button class="filter-pill" data-fp="closed" onclick="br_setFilter('closed')"&gt;&amp;#9989; Closed&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button class="filter-pill" data-fp="rejected" onclick="br_setFilter('rejected')"&gt;&amp;#10060; Rejected&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;button class="filter-pill" data-fp="ghost" onclick="br_setFilter('ghost')"&gt;&amp;#128123; Ghost&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="overflow-x-auto custom-scrollbar"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;table class="table-brand w-full"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;thead&gt;&lt;tr&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;th onclick="br_setSort('name')"&gt;Brand&lt;/th&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;th onclick="br_setSort('person')"&gt;Person&lt;/th&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;th onclick="br_setSort('loc')"&gt;Location&lt;/th&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;th&gt;Website&lt;/th&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;th&gt;Instagram&lt;/th&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;th onclick="br_setSort('date')"&gt;Outreach&lt;/th&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;th onclick="br_setSort('follow')"&gt;Follow-up&lt;/th&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;th onclick="br_setSort('status')"&gt;Status&lt;/th&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;th class="text-right"&gt;Action&lt;/th&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/tr&gt;&lt;/thead&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;tbody id="brand-table-body"&gt;&lt;/tbody&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/table&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;p id="brand-empty-msg" class="text-center py-12 text-[10px] text-muted uppercase font-bold hidden"&gt;Belum ada data brand. Mulai penjangkauan pertamamu.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- =================== VIEW: REVIEW DASHBOARD =================== --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div id="view-review" class="hidden space-y-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/10"&gt;&lt;h3 class="syne font-bold uppercase text-amber-400 tracking-wider"&gt;MONTHLY STRATEGIC REVIEW&lt;/h3&gt;&lt;select id="review-month-selector" onchange="loadReview()" class="outline-none"&gt;&lt;/select&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="swot-weeks-container"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="glass p-8 overflow-hidden"&gt;&lt;h3 class="syne text-xs font-bold text-amber-400 uppercase mb-6 tracking-widest"&gt;MONTHLY LOG HISTORY&lt;/h3&gt;&lt;div class="overflow-x-auto custom-scrollbar"&gt;&lt;table class="table-log w-full text-left"&gt;&lt;tbody id="weekly-log-table"&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- =================== VIEW: BRAIN DUMP =================== --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div id="view-ideas" class="hidden space-y-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="glass p-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="flex justify-between items-center mb-6"&gt;&lt;h3 class="syne text-xs font-bold text-purple-400 uppercase tracking-[0.3em]"&gt;BRAIN DUMP STUDIO&lt;/h3&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="space-y-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;textarea id="idea-input" class="w-full bg-white/5 border border-white/10 rounded-2xl p-6 text-sm outline-none focus:border-purple-400 min-h-[100px] resize-none" placeholder="Capture your design idea..."&gt;&lt;/textarea&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="idea-link" class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-3 text-xs outline-none" placeholder="Reference Link (Pinterest, Behance, etc.)"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button onclick="addIdea()" class="w-full bg-purple-400 text-black py-4 rounded-xl syne font-black text-xs uppercase tracking-widest active:scale-[0.98] transition-all"&gt;CAPTURE CONCEPT&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="space-y-4"&gt;&lt;div class="flex items-center px-2"&gt;&lt;p class="text-[9px] font-black text-purple-400 uppercase tracking-[0.3em]"&gt;Draft Ideas&lt;/p&gt;&lt;span id="draft-count" class="count-badge"&gt;0&lt;/span&gt;&lt;/div&gt;&lt;div id="active-ideas-container" class="grid grid-cols-1 gap-3"&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="mt-12 space-y-4"&gt;&lt;div class="flex items-center px-2"&gt;&lt;p class="text-[9px] font-black text-money uppercase tracking-[0.3em]"&gt;Complete Concepts&lt;/p&gt;&lt;span id="complete-count" class="count-badge"&gt;0&lt;/span&gt;&lt;/div&gt;&lt;div id="executed-ideas-history" class="grid grid-cols-1 gap-3"&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- =================== VIEW: STRATEGY =================== --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div id="view-strategy" class="hidden space-y-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="glass p-8 border-l-4 border-l-purple-500"&gt;&lt;h2 class="syne text-2xl font-black text-purple-400 uppercase tracking-tighter mb-2"&gt;ROAD TO $50,000 STRATEGY&lt;/h2&gt;&lt;p class="text-xs text-muted leading-relaxed"&gt;Peta jalan realistis untuk mencapai target dalam durasi 9 bulan (April - Desember 2026).&lt;/p&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="glass p-6"&gt;&lt;p class="text-[9px] font-bold text-muted mb-2 uppercase tracking-widest"&gt;Monthly Target&lt;/p&gt;&lt;p class="syne text-3xl font-black text-teal-400"&gt;$5,555+&lt;/p&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="glass p-6"&gt;&lt;p class="text-[9px] font-bold text-muted mb-2 uppercase tracking-widest"&gt;Daily Revenue Quota&lt;/p&gt;&lt;p class="syne text-3xl font-black text-amber-400"&gt;$185+&lt;/p&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="glass p-6"&gt;&lt;p class="text-[9px] font-bold text-muted mb-2 uppercase tracking-widest"&gt;Total Goal&lt;/p&gt;&lt;p class="syne text-3xl font-black text-money"&gt;$50,000&lt;/p&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="mt-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="flex items-center gap-4 mb-5 px-1"&gt;&lt;h3 class="syne text-[10px] font-black uppercase tracking-[0.4em] text-muted"&gt;SALES STRUCTURE&lt;/h3&gt;&lt;div class="h-[1px] flex-1 bg-white/5"&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-3"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white/[0.02] border border-white/5 p-5 rounded-2xl group hover:border-teal-400/30 transition-all"&gt;&lt;p class="text-[8px] font-black text-teal-400 uppercase tracking-[0.2em] mb-4"&gt;Model A / Single&lt;/p&gt;&lt;div class="space-y-0.5"&gt;&lt;p class="syne text-2xl font-bold tracking-tight"&gt;$70.00&lt;/p&gt;&lt;p class="text-[10px] font-bold text-slate-500 uppercase"&gt;Goal: ~715 Units&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white/[0.02] border border-white/5 p-5 rounded-2xl group hover:border-amber-400/30 transition-all"&gt;&lt;p class="text-[8px] font-black text-amber-400 uppercase tracking-[0.2em] mb-4"&gt;Model B / Pack 3&lt;/p&gt;&lt;div class="space-y-0.5"&gt;&lt;p class="syne text-2xl font-bold tracking-tight"&gt;$400.00&lt;/p&gt;&lt;p class="text-[10px] font-bold text-slate-500 uppercase"&gt;Goal: 125 Bundles&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white/[0.02] border border-white/5 p-5 rounded-2xl group hover:border-purple-400/30 transition-all"&gt;&lt;p class="text-[8px] font-black text-purple-400 uppercase tracking-[0.2em] mb-4"&gt;Model C / Pack 6+2&lt;/p&gt;&lt;div class="space-y-0.5"&gt;&lt;p class="syne text-2xl font-bold tracking-tight"&gt;$600.00&lt;/p&gt;&lt;p class="text-[10px] font-bold text-slate-500 uppercase"&gt;Goal: ~84 Bundles&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- =================== VIEW: BANK PROMPT =================== --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div id="view-prompts" class="hidden space-y-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="glass p-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="flex justify-between items-center mb-6"&gt;&lt;h3 class="syne text-xs font-bold text-teal-400 uppercase tracking-[0.3em]"&gt;BANK PROMPT STUDIO&lt;/h3&gt;&lt;p id="prompts-count" class="syne text-lg font-bold text-teal-400"&gt;0&lt;/p&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="space-y-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;input type="text" id="prompt-title-input" class="w-full bg-white/5 border border-white/10 rounded-xl px-6 py-3 text-xs outline-none focus:border-teal-400" placeholder="Prompt Title"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;textarea id="prompt-content-input" class="w-full bg-white/5 border border-white/10 rounded-2xl p-6 text-sm outline-none focus:border-teal-400 min-h-[120px] resize-none custom-scrollbar" placeholder="Full prompt content..."&gt;&lt;/textarea&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button onclick="addPrompt()" class="w-full bg-teal-400 text-black py-4 rounded-xl syne font-black text-xs uppercase tracking-widest active:scale-[0.98] transition-all"&gt;SAVE TO BANK&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div id="prompts-list" class="grid grid-cols-1 gap-4"&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- =================== VIEW: INSIGHTS =================== --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div id="view-insights" class="hidden space-y-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="flex justify-between items-center bg-white/5 p-4 rounded-2xl border border-white/10"&gt;&lt;h3 class="syne font-bold uppercase text-purple-400 tracking-wider"&gt;FULL ANALYTICS SUMMARY&lt;/h3&gt;&lt;select id="insight-month-selector" onchange="calculateInsights()" class="bg-transparent text-purple-400 font-bold outline-none cursor-pointer"&gt;&lt;/select&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="grid grid-cols-2 md:grid-cols-4 gap-4"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="stat-grid-card"&gt;&lt;span class="stat-label"&gt;Total Income&lt;/span&gt;&lt;span id="ins-month-income" class="stat-value text-money"&gt;$0&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="stat-grid-card"&gt;&lt;span class="stat-label"&gt;Avg Daily&lt;/span&gt;&lt;span id="ins-month-avg" class="stat-value text-teal-400"&gt;$0&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="stat-grid-card"&gt;&lt;span class="stat-label"&gt;Designs Created&lt;/span&gt;&lt;span id="ins-month-tasks" class="stat-value text-amber-400"&gt;0&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="stat-grid-card"&gt;&lt;span class="stat-label"&gt;Progress&lt;/span&gt;&lt;span id="ins-month-pct" class="stat-value text-purple-400"&gt;0%&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-6"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="glass p-6 min-h-[300px] flex flex-col"&gt;&lt;div class="flex justify-between items-center mb-4"&gt;&lt;h4 class="syne text-[10px] font-black text-muted uppercase tracking-widest"&gt;REVENUE PROGRESS TRACKER&lt;/h4&gt;&lt;span id="ins-rev-label" class="text-[9px] font-bold text-money px-2 py-1 bg-money/10 rounded border border-money/20"&gt;$0 / $5,555&lt;/span&gt;&lt;/div&gt;&lt;div class="flex-1 relative flex items-center"&gt;&lt;canvas id="revenueChart"&gt;&lt;/canvas&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="glass p-6 min-h-[300px] flex flex-col"&gt;&lt;h4 class="syne text-[10px] font-black text-muted uppercase tracking-widest mb-4"&gt;EXECUTION FOCUS BALANCE&lt;/h4&gt;&lt;div class="flex-1 relative"&gt;&lt;canvas id="radarChart"&gt;&lt;/canvas&gt;&lt;/div&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="insight-highlight-card"&gt;&lt;h4 class="syne text-[10px] font-black text-teal-400 uppercase tracking-widest mb-4"&gt;AUTOMATED STRATEGIC SUMMARY&lt;/h4&gt;&lt;p id="ins-auto-summary" class="text-xs text-slate-400 leading-relaxed italic"&gt;Analyzing data...&lt;/p&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 glass px-6 py-3 text-[10px] syne font-bold text-amber-400 opacity-0 pointer-events-none transition-all z-[999] tracking-widest uppercase"&gt;SAVED&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">&lt;script type="module"&gt;</span></p>
+<p class="p1"><span class="s1">import{initializeApp}from"https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";</span></p>
+<p class="p1"><span class="s1">import{getAuth,signInAnonymously,onAuthStateChanged,signInWithCustomToken}from"https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";</span></p>
+<p class="p1"><span class="s1">import{getFirestore,doc,setDoc,getDoc,collection,onSnapshot,deleteDoc}from"https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">const appId=typeof __app_id!=='undefined'?__app_id:'folluther-studio-tracker-pro';</span></p>
+<p class="p1"><span class="s1">const firebaseConfig=JSON.parse(typeof __firebase_config!=='undefined'?__firebase_config:'{}');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">const TASKS=[</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>{id:'m1',cat:'money',text:'Send 20 Cold Outreach'},{id:'m2',cat:'money',text:'10 Follow-ups (D+3/D+7)'},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>{id:'m3',cat:'money',text:'Pitch 3 Warm Leads'},{id:'m4',cat:'money',text:'Push 1 Deal to Close'},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>{id:'c1',cat:'creation',text:'Create 3 Designs for Sale'},{id:'c2',cat:'creation',text:'Post Social Reels'},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>{id:'c3',cat:'creation',text:'Deliver Active Client Work'},{id:'c4',cat:'creation',text:'Sketch 5 Concept Ideas'},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>{id:'g1',cat:'growth',text:'60m Deep Work Learning'},{id:'g2',cat:'growth',text:'Audit Competitor Strategies'},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>{id:'s1',cat:'system',text:'Update CRM/Tracker'},{id:'s2',cat:'system',text:'Review &amp; Prep Next Day'}</span></p>
+<p class="p1"><span class="s1">];</span></p>
+<p class="p1"><span class="s1">const MONTH_NAMES=["April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];</span></p>
+<p class="p1"><span class="s1">const YEAR=2026,START_DATE=new Date('2026-04-01'),GOAL_TARGET=50000,MONTHLY_REVENUE_GOAL=GOAL_TARGET/9;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">const BR_STATUS={</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>new:{label:'New',cls:'br-s-new'},contacted:{label:'Contacted',cls:'br-s-contacted'},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>follow:{label:'Follow-up',cls:'br-s-follow'},replied:{label:'Replied',cls:'br-s-replied'},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>closed:{label:'Closed',cls:'br-s-closed'},rejected:{label:'Rejected',cls:'br-s-rejected'},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>ghost:{label:'Ghost',cls:'br-s-ghost'}</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">let db,auth,user;</span></p>
+<p class="p1"><span class="s1">let mainChart,spiritChart,revenueChart,radarChart,proj_ganttChart,proj_statusChart;</span></p>
+<p class="p1"><span class="s1">let allDaysData={},allIdeasData=[],allPromptsData=[],allProjectsData=[],allBrandsData=[];</span></p>
+<p class="p1"><span class="s1">let viewDate=new Date().toISOString().split('T')[0];</span></p>
+<p class="p1"><span class="s1">let state={done:[],notes:"",income:0};</span></p>
+<p class="p1"><span class="s1">let proj_calViewDate=new Date(),proj_urgentToastShown=false;</span></p>
+<p class="p1"><span class="s1">let br_calViewDate=new Date(),br_activeFilter='all',br_sortKey='date',br_sortDir='desc',br_editId=null;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">async function init(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>startClocks();generateRoadmap();initCharts();renderTaskItems();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>populateReviewMonthSelector();populateInsightMonthSelector();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(firebaseConfig.apiKey){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>try{if(typeof __initial_auth_token!=='undefined'&amp;&amp;__initial_auth_token)await signInWithCustomToken(auth,__initial_auth_token);else await signInAnonymously(auth);}catch(e){await signInAnonymously(auth);}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>onAuthStateChanged(auth,async u=&gt;{if(u){user=u;document.getElementById('sync-indicator').classList.add('sync-active');setupListeners();}});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}else{loadLocal();switchDate(viewDate);}</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">window.openModal=()=&gt;document.getElementById('name-modal').style.display='flex';</span></p>
+<p class="p1"><span class="s1">window.closeModal=()=&gt;document.getElementById('name-modal').style.display='none';</span></p>
+<p class="p1"><span class="s1">window.saveAlias=async()=&gt;{const a=document.getElementById('new-alias-input').value.trim();if(!a)return;if(user)await setDoc(doc(db,'artifacts',appId,'users',user.uid,'profile','identity'),{alias:a});else{localStorage.setItem('folluther_alias',a);document.getElementById('user-id-display').innerText=a;}closeModal();};</span></p>
+<p class="p1"><span class="s1">document.getElementById('btn-save-alias').addEventListener('click',window.saveAlias);</span></p>
+<p class="p1"><span class="s1">window.jumpToToday=()=&gt;switchDate(new Date().toISOString().split('T')[0]);</span></p>
+<p class="p1"><span class="s1">window.manualSave=save;</span></p>
+<p class="p1"><span class="s1">window.resetDay=async()=&gt;{state={done:[],notes:"",income:0};renderState();await save();showToast("DAY RESET");};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">window.setView=mode=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>['daily','project','brandreach','review','ideas','strategy','prompts','insights'].forEach(v=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const el=document.getElementById('view-'+v),btn=document.getElementById('btn-'+v);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if(el)el.classList.toggle('hidden',v!==mode);if(btn)btn.classList.toggle('active',v===mode);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(mode==='insights')calculateInsights();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(mode==='review')loadReview();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(mode==='ideas')renderIdeas();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(mode==='prompts')renderPrompts();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(mode==='project'){proj_urgentToastShown=false;proj_renderAll();}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(mode==='brandreach')br_renderAll();</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function setupListeners(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!user)return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>onSnapshot(doc(db,'artifacts',appId,'users',user.uid,'profile','identity'),s=&gt;{if(s.exists())document.getElementById('user-id-display').innerText=s.data().alias;});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>onSnapshot(collection(db,'artifacts',appId,'users',user.uid,'dailyStats'),s=&gt;{s.docs.forEach(d=&gt;{allDaysData[d.id]=d.data();});updateUI();if(!document.getElementById('view-insights').classList.contains('hidden'))calculateInsights();});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>onSnapshot(collection(db,'artifacts',appId,'users',user.uid,'ideas'),s=&gt;{allIdeasData=s.docs.map(d=&gt;d.data());renderIdeas();});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>onSnapshot(collection(db,'artifacts',appId,'users',user.uid,'prompts'),s=&gt;{allPromptsData=s.docs.map(d=&gt;d.data());renderPrompts();});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>onSnapshot(collection(db,'artifacts',appId,'users',user.uid,'projects'),s=&gt;{allProjectsData=s.docs.map(d=&gt;d.data());proj_renderAll();});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>onSnapshot(collection(db,'artifacts',appId,'users',user.uid,'brands'),s=&gt;{allBrandsData=s.docs.map(d=&gt;d.data());br_renderAll();});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>switchDate(viewDate);</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">function loadLocal(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>allDaysData=JSON.parse(localStorage.getItem('folluther_days')||'{}');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>allIdeasData=JSON.parse(localStorage.getItem('folluther_ideas')||'[]');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>allPromptsData=JSON.parse(localStorage.getItem('folluther_prompts')||'[]');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>allProjectsData=JSON.parse(localStorage.getItem('folluther_projects')||'[]');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>allBrandsData=JSON.parse(localStorage.getItem('folluther_brands')||'[]');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const alias=localStorage.getItem('folluther_alias');if(alias)document.getElementById('user-id-display').innerText=alias;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>updateUI();renderIdeas();renderPrompts();proj_renderAll();br_renderAll();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">async function switchDate(ds){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>viewDate=ds;const d=new Date(ds);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('date-display').innerText=d.toLocaleDateString('id-ID',{weekday:'long',month:'long',day:'numeric'});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('introspection-label').innerText=`INTROSPECTION (${ds})`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const diff=Math.floor((d-START_DATE)/86400000)+1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('day-badge').innerText=`DAY ${diff&gt;0?diff:'PREP'}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(user){const snap=await getDoc(doc(db,'artifacts',appId,'users',user.uid,'dailyStats',ds));state=snap.exists()?snap.data():{done:[],notes:"",income:0};}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>else state=allDaysData[ds]||{done:[],notes:"",income:0};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>renderState();updateCalendarSelection();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">function renderState(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.querySelectorAll('.task-item').forEach(el=&gt;el.classList.toggle('done',state.done.includes(el.dataset.id)));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const ne=document.getElementById('notes'),ie=document.getElementById('daily-income');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(document.activeElement!==ne)ne.value=state.notes||"";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(document.activeElement!==ie)ie.value=state.income||"";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const pct=Math.round((state.done.length/TASKS.length)*100);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('total-pct').innerText=pct+"%";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(mainChart){mainChart.data.datasets[0].data=[state.done.length,TASKS.length-state.done.length];mainChart.update();}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>updateUI();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">async function save(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(user)await setDoc(doc(db,'artifacts',appId,'users',user.uid,'dailyStats',viewDate),state);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>else{allDaysData[viewDate]={...state};localStorage.setItem('folluther_days',JSON.stringify(allDaysData));}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const s=document.getElementById('save-status');s.style.opacity=1;setTimeout(()=&gt;s.style.opacity=0,1000);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>updateUI();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">window.toggleTask=id=&gt;{const i=state.done.indexOf(id);if(i&gt;-1)state.done.splice(i,1);else state.done.push(id);renderState();save();};</span></p>
+<p class="p1"><span class="s1">window.saveIncome=()=&gt;{state.income=parseFloat(document.getElementById('daily-income').value)||0;save();};</span></p>
+<p class="p1"><span class="s1">window.saveNotes=()=&gt;{state.notes=document.getElementById('notes').value;save();};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function updateUI(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let totalRev=0;Object.values(allDaysData).forEach(d=&gt;totalRev+=parseFloat(d.income||0));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('total-revenue-accumulated').innerText=`$${totalRev.toLocaleString('en-US',{minimumFractionDigits:2})}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const prog=(totalRev/GOAL_TARGET)*100;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('goal-pct-display').innerText=prog.toFixed(1)+"%";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('goal-progress-bar').style.width=Math.min(100,prog)+"%";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('remaining-target-display').innerText=`REMAINING: $${Math.max(0,GOAL_TARGET-totalRev).toLocaleString()}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>MONTH_NAMES.forEach((name,i)=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const mIdx=i+3;let mRev=0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>Object.keys(allDaysData).forEach(k=&gt;{if(new Date(k).getMonth()===mIdx)mRev+=parseFloat(allDaysData[k].income||0);});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const mk=name.toLowerCase().replace('mei','may');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const mGoal=MONTHLY_REVENUE_GOAL,mRem=Math.max(0,mGoal-mRev);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if(document.getElementById(`total-${mk}`))document.getElementById(`total-${mk}`).innerText=`$${mRev.toLocaleString()}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if(document.getElementById(`bar-${mk}`))document.getElementById(`bar-${mk}`).style.width=Math.min(100,(mRev/mGoal)*100)+"%";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if(document.getElementById(`rem-${mk}`))document.getElementById(`rem-${mk}`).innerText=`Rem: $${Math.ceil(mRem).toLocaleString()}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.querySelectorAll('.calendar-day').forEach(el=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const dk=el.dataset.date;if(!dk)return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const dd=allDaysData[dk],dn=dk.split('-')[2];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if(dd&amp;&amp;dd.done&amp;&amp;dd.done.length&gt;0){const pct=Math.round((dd.done.length/TASKS.length)*100);el.classList.add('has-data');el.innerHTML=`&lt;span&gt;${parseInt(dn)}&lt;/span&gt;&lt;span class="pct-label"&gt;${pct}%&lt;/span&gt;`;}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>else{el.classList.remove('has-data');el.innerHTML=`&lt;span&gt;${parseInt(dn)}&lt;/span&gt;`;}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>updateSpiritChart();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">function generateRoadmap(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const container=document.getElementById('calendar-grid');if(!container)return;container.innerHTML="";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>MONTH_NAMES.forEach((name,i)=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const mIdx=i+3,mk=name.toLowerCase().replace('mei','may');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const section=document.createElement('div');section.className="space-y-2";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>section.innerHTML=`&lt;div class="flex justify-between items-start"&gt;&lt;div&gt;&lt;p class="text-[10px] uppercase font-bold text-slate-500"&gt;${name}&lt;/p&gt;&lt;span id="rem-${mk}" class="target-label"&gt;Rem: $5,555&lt;/span&gt;&lt;/div&gt;&lt;p id="total-${mk}" class="text-[10px] font-bold income-glow"&gt;$0&lt;/p&gt;&lt;/div&gt;&lt;div class="mini-progress-bg"&gt;&lt;div id="bar-${mk}" class="mini-progress-fill"&gt;&lt;/div&gt;&lt;/div&gt;&lt;div id="cal-${mk}" class="grid grid-cols-7 gap-1"&gt;&lt;/div&gt;`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>container.appendChild(section);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const firstDay=new Date(YEAR,mIdx,1).getDay(),days=new Date(YEAR,mIdx+1,0).getDate();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const mc=section.querySelector(`#cal-${mk}`);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>for(let j=0;j&lt;firstDay;j++)mc.appendChild(document.createElement('div'));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>for(let d=1;d&lt;=days;d++){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const dStr=`${YEAR}-${String(mIdx+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const dayEl=document.createElement('div');dayEl.className="calendar-day";dayEl.dataset.date=dStr;dayEl.innerHTML=`&lt;span&gt;${d}&lt;/span&gt;`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>dayEl.onclick=()=&gt;switchDate(dStr);mc.appendChild(dayEl);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">function updateCalendarSelection(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.querySelectorAll('.calendar-day').forEach(el=&gt;{el.classList.toggle('active',el.dataset.date===viewDate);el.classList.toggle('today',el.dataset.date===new Date().toISOString().split('T')[0]);});</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">function populateReviewMonthSelector(){const sel=document.getElementById('review-month-selector');if(!sel)return;MONTH_NAMES.forEach(m=&gt;{const o=document.createElement('option');o.value=m;o.innerText=m.toUpperCase();sel.appendChild(o);});sel.value=MONTH_NAMES[new Date().getMonth()-3]||MONTH_NAMES[0];}</span></p>
+<p class="p1"><span class="s1">function populateInsightMonthSelector(){const sel=document.getElementById('insight-month-selector');if(!sel)return;MONTH_NAMES.forEach((m,i)=&gt;{const o=document.createElement('option');o.value=i+3;o.innerText=m.toUpperCase();sel.appendChild(o);});sel.value=new Date().getMonth();}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">window.calculateInsights=()=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const selMonth=parseInt(document.getElementById('insight-month-selector').value);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const keys=Object.keys(allDaysData).filter(k=&gt;new Date(k).getMonth()===selMonth);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let totalIncome=0,totalDesigns=0,cat={money:0,creation:0,growth:0,system:0};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>keys.forEach(k=&gt;{const d=allDaysData[k];totalIncome+=parseFloat(d.income||0);if(d.done.includes('c1'))totalDesigns+=3;d.done.forEach(tid=&gt;{const t=TASKS.find(x=&gt;x.id===tid);if(t)cat[t.cat]++;});});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const mGoal=MONTHLY_REVENUE_GOAL;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(document.getElementById('ins-month-income'))document.getElementById('ins-month-income').innerText=`$${totalIncome.toLocaleString()}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(document.getElementById('ins-month-tasks'))document.getElementById('ins-month-tasks').innerText=totalDesigns;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(document.getElementById('ins-month-pct'))document.getElementById('ins-month-pct').innerText=((totalIncome/mGoal)*100).toFixed(1)+"%";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(document.getElementById('ins-rev-label'))document.getElementById('ins-rev-label').innerText=`$${totalIncome.toLocaleString()} / $${Math.round(mGoal).toLocaleString()}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(revenueChart){revenueChart.data.datasets[0].data=[totalIncome];revenueChart.options.scales.x.max=mGoal;revenueChart.update();}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(radarChart){radarChart.data.datasets[0].data=[cat.money,cat.creation,cat.growth,cat.system];radarChart.update();}</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">window.loadReview=async()=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const sel=document.getElementById('review-month-selector').value;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const con=document.getElementById('swot-weeks-container');if(!con)return;con.innerHTML="";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>for(let w=1;w&lt;=4;w++){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const pk=`${sel} - Week ${w}`;let r={s:"",w:"",o:"",t:""};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if(user){const snap=await getDoc(doc(db,'artifacts',appId,'users',user.uid,'reviews',pk));if(snap.exists())r=snap.data();}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>else r=JSON.parse(localStorage.getItem('swot_'+pk)||'{"s":"","w":"","o":"","t":""}');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const wc=document.createElement('div');wc.className="week-review-card";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>wc.innerHTML=`&lt;div class="flex items-center gap-4 mb-4 border-b border-white/5 pb-2"&gt;&lt;span class="syne font-black text-amber-400 text-xs uppercase tracking-widest"&gt;MINGGU ${w} / STRATEGY AUDIT&lt;/span&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-3"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="swot-box"&gt;&lt;div class="flex justify-between items-center mb-1"&gt;&lt;h4 class="text-[9px] font-black text-teal-400 uppercase tracking-widest"&gt;Strengths&lt;/h4&gt;&lt;span class="text-[6px] text-muted uppercase font-bold tracking-widest"&gt;Internal Positif&lt;/span&gt;&lt;/div&gt;&lt;p class="text-[7px] text-slate-500 mb-2 leading-tight"&gt;Pencapaian, keunggulan teknis, atau kemenangan efisiensi minggu ini.&lt;/p&gt;&lt;textarea oninput="saveWeeklyReview('${pk}','s',this.value)" class="swot-input custom-scrollbar" placeholder="Apa yang berjalan sempurna?"&gt;${r.s}&lt;/textarea&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="swot-box"&gt;&lt;div class="flex justify-between items-center mb-1"&gt;&lt;h4 class="text-[9px] font-black text-red-400 uppercase tracking-widest"&gt;Weaknesses&lt;/h4&gt;&lt;span class="text-[6px] text-muted uppercase font-bold tracking-widest"&gt;Internal Negatif&lt;/span&gt;&lt;/div&gt;&lt;p class="text-[7px] text-slate-500 mb-2 leading-tight"&gt;Hambatan produktivitas, kegagalan teknis, atau area yang lambat.&lt;/p&gt;&lt;textarea oninput="saveWeeklyReview('${pk}','w',this.value)" class="swot-input custom-scrollbar" placeholder="Dimana kita gagal atau terhambat?"&gt;${r.w}&lt;/textarea&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="swot-box"&gt;&lt;div class="flex justify-between items-center mb-1"&gt;&lt;h4 class="text-[9px] font-black text-amber-400 uppercase tracking-widest"&gt;Opportunities&lt;/h4&gt;&lt;span class="text-[6px] text-muted uppercase font-bold tracking-widest"&gt;Eksternal Positif&lt;/span&gt;&lt;/div&gt;&lt;p class="text-[7px] text-slate-500 mb-2 leading-tight"&gt;Potensi leads baru, trend desain, atau feedback positif klien.&lt;/p&gt;&lt;textarea oninput="saveWeeklyReview('${pk}','o',this.value)" class="swot-input custom-scrollbar" placeholder="Peluang emas yang terlihat?"&gt;${r.o}&lt;/textarea&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="swot-box"&gt;&lt;div class="flex justify-between items-center mb-1"&gt;&lt;h4 class="text-[9px] font-black text-purple-400 uppercase tracking-widest"&gt;Threats&lt;/h4&gt;&lt;span class="text-[6px] text-muted uppercase font-bold tracking-widest"&gt;Eksternal Negatif&lt;/span&gt;&lt;/div&gt;&lt;p class="text-[7px] text-slate-500 mb-2 leading-tight"&gt;Deadline bentrok, perubahan pasar, atau risiko kompetitor.&lt;/p&gt;&lt;textarea oninput="saveWeeklyReview('${pk}','t',this.value)" class="swot-input custom-scrollbar" placeholder="Risiko yang harus diwaspadai?"&gt;${r.t}&lt;/textarea&gt;&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>con.appendChild(wc);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>renderLogTable(sel);</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p1"><span class="s1">window.saveWeeklyReview=async(pk,key,val)=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let r={s:"",w:"",o:"",t:""};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(user){const snap=await getDoc(doc(db,'artifacts',appId,'users',user.uid,'reviews',pk));if(snap.exists())r=snap.data();}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>else r=JSON.parse(localStorage.getItem('swot_'+pk)||'{"s":"","w:"","o":"","t":""}');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>r[key]=val;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(user)await setDoc(doc(db,'artifacts',appId,'users',user.uid,'reviews',pk),r);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>else localStorage.setItem('swot_'+pk,JSON.stringify(r));</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p1"><span class="s1">function renderLogTable(mn){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const t=document.getElementById('weekly-log-table');if(!t)return;t.innerHTML="";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>Object.keys(allDaysData).sort().reverse().forEach(k=&gt;{if(MONTH_NAMES[new Date(k).getMonth()-3]===mn){const d=allDaysData[k];t.innerHTML+=`&lt;tr&gt;&lt;td class="text-xs font-bold"&gt;${k}&lt;/td&gt;&lt;td class="text-xs text-money font-black"&gt;$${(d.income||0).toLocaleString()}&lt;/td&gt;&lt;td class="text-xs"&gt;&lt;span class="bg-amber-400 text-black px-1 rounded font-bold"&gt;${Math.round(d.done.length/TASKS.length*100)}%&lt;/span&gt;&lt;/td&gt;&lt;td class="text-[10px] italic text-muted"&gt;${d.notes||'---'}&lt;/td&gt;&lt;/tr&gt;`;}});</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">window.addIdea=async()=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const inp=document.getElementById('idea-input'),lnk=document.getElementById('idea-link');const txt=inp.value.trim();if(!txt)return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const id=crypto.randomUUID();const idea={id,text:txt,link:lnk.value,done:false,timestamp:new Date().toLocaleDateString('id-ID',{day:'2-digit',month:'short'}),created:Date.now()};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(user)await setDoc(doc(db,'artifacts',appId,'users',user.uid,'ideas',id),idea);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>else{allIdeasData.push(idea);localStorage.setItem('folluther_ideas',JSON.stringify(allIdeasData));renderIdeas();}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>inp.value="";lnk.value="";showToast("IDEA CAPTURED");</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p1"><span class="s1">window.toggleIdea=async id=&gt;{const i=allIdeasData.findIndex(x=&gt;x.id===id);if(i===-1)return;allIdeasData[i].done=!allIdeasData[i].done;if(user)await setDoc(doc(db,'artifacts',appId,'users',user.uid,'ideas',id),allIdeasData[i]);else{localStorage.setItem('folluther_ideas',JSON.stringify(allIdeasData));renderIdeas();}};</span></p>
+<p class="p1"><span class="s1">window.deleteIdea=async id=&gt;{if(user)await deleteDoc(doc(db,'artifacts',appId,'users',user.uid,'ideas',id));else{allIdeasData=allIdeasData.filter(x=&gt;x.id!==id);localStorage.setItem('folluther_ideas',JSON.stringify(allIdeasData));renderIdeas();}showToast("DELETED");};</span></p>
+<p class="p1"><span class="s1">function renderIdeas(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const ac=document.getElementById('active-ideas-container'),hc=document.getElementById('executed-ideas-history');if(!ac||!hc)return;ac.innerHTML="";hc.innerHTML="";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const active=allIdeasData.filter(i=&gt;!i.done).sort((a,b)=&gt;b.created-a.created),done=allIdeasData.filter(i=&gt;i.done).sort((a,b)=&gt;b.created-a.created);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(document.getElementById('draft-count'))document.getElementById('draft-count').innerText=active.length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(document.getElementById('complete-count'))document.getElementById('complete-count').innerText=done.length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>active.forEach((i,idx)=&gt;{const card=document.createElement('div');card.className="idea-card flex items-start gap-4";card.onclick=()=&gt;toggleIdea(i.id);card.innerHTML=`&lt;span class="idea-number"&gt;${idx+1}.&lt;/span&gt;&lt;div class="checkbox-custom mt-1"&gt;&lt;/div&gt;&lt;div class="flex-1"&gt;&lt;p class="text-[8px] uppercase tracking-widest text-purple-400 font-bold mb-1"&gt;${i.timestamp}&lt;/p&gt;&lt;p class="text-xs font-medium"&gt;${i.text}&lt;/p&gt;${i.link?`&lt;a href="${i.link}" target="_blank" class="ref-link-btn" onclick="event.stopPropagation()"&gt;VIEW REF&lt;/a&gt;`:''}&lt;/div&gt;&lt;button onclick="event.stopPropagation();deleteIdea('${i.id}')" class="btn-delete"&gt;DEL&lt;/button&gt;`;ac.appendChild(card);});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>done.forEach((i,idx)=&gt;{const card=document.createElement('div');card.className="idea-card done flex items-start gap-4";card.onclick=()=&gt;toggleIdea(i.id);card.innerHTML=`&lt;span class="idea-number"&gt;${idx+1}.&lt;/span&gt;&lt;div class="checkbox-custom mt-1"&gt;&lt;/div&gt;&lt;div class="flex-1"&gt;&lt;p class="text-xs text-muted"&gt;${i.text}&lt;/p&gt;&lt;/div&gt;&lt;button onclick="event.stopPropagation();deleteIdea('${i.id}')" class="btn-delete"&gt;DEL&lt;/button&gt;`;hc.appendChild(card);});</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">window.addPrompt=async()=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const ti=document.getElementById('prompt-title-input'),ci=document.getElementById('prompt-content-input');const title=ti.value.trim(),content=ci.value.trim();if(!title||!content)return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const id=crypto.randomUUID();const p={id,title,content,created:Date.now()};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(user)await setDoc(doc(db,'artifacts',appId,'users',user.uid,'prompts',id),p);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>else{allPromptsData.push(p);localStorage.setItem('folluther_prompts',JSON.stringify(allPromptsData));renderPrompts();}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>ti.value="";ci.value="";showToast("PROMPT SAVED");</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p1"><span class="s1">window.deletePrompt=async id=&gt;{if(user)await deleteDoc(doc(db,'artifacts',appId,'users',user.uid,'prompts',id));else{allPromptsData=allPromptsData.filter(p=&gt;p.id!==id);localStorage.setItem('folluther_prompts',JSON.stringify(allPromptsData));renderPrompts();}showToast("DELETED");};</span></p>
+<p class="p1"><span class="s1">window.copyPrompt=c=&gt;{const el=document.createElement('textarea');el.value=c;document.body.appendChild(el);el.select();document.execCommand('copy');document.body.removeChild(el);showToast("COPIED");};</span></p>
+<p class="p1"><span class="s1">function renderPrompts(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const list=document.getElementById('prompts-list');if(!list)return;list.innerHTML="";</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(document.getElementById('prompts-count'))document.getElementById('prompts-count').innerText=allPromptsData.length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>allPromptsData.sort((a,b)=&gt;b.created-a.created).forEach(p=&gt;{list.innerHTML+=`&lt;div class="prompt-card space-y-3"&gt;&lt;div class="flex justify-between items-center"&gt;&lt;h4 class="prompt-title"&gt;${p.title}&lt;/h4&gt;&lt;div class="flex gap-2"&gt;&lt;button onclick="copyPrompt(allPromptsData.find(x=&gt;x.id==='${p.id}').content)" class="text-teal-400 font-bold text-[9px] uppercase hover:underline"&gt;Copy&lt;/button&gt;&lt;button onclick="deletePrompt('${p.id}')" class="text-red-400 font-bold text-[9px] uppercase hover:underline"&gt;Delete&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;p class="prompt-content"&gt;${p.content}&lt;/p&gt;&lt;/div&gt;`;});</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* ===== PROJECT TRACKER ===== */</span></p>
+<p class="p1"><span class="s1">function todayStr(){return new Date().toISOString().split('T')[0];}</span></p>
+<p class="p1"><span class="s1">function daysDiff(a,b){return Math.ceil((new Date(b+'T00:00:00')-new Date(a+'T00:00:00'))/86400000);}</span></p>
+<p class="p1"><span class="s1">function isUrgent(p){return p.status==='active'&amp;&amp;daysDiff(todayStr(),p.deadline)&lt;=3;}</span></p>
+<p class="p1"><span class="s1">function isOverdue(p){return p.status==='active'&amp;&amp;daysDiff(todayStr(),p.deadline)&lt;0;}</span></p>
+<p class="p1"><span class="s1">function isLateStart(p){return p.status==='active'&amp;&amp;daysDiff(p.startDate,todayStr())&gt;=2;}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">window.proj_addProject=async()=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const name=document.getElementById('proj-input-name').value.trim(),brand=document.getElementById('proj-input-brand').value.trim();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!name||!brand){showToast("PROJECT NAME &amp; BRAND WAJIB DIISI");return;}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const today=todayStr();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const project={id:crypto.randomUUID(),name,brand,website:document.getElementById('proj-input-website').value.trim(),instagram:document.getElementById('proj-input-instagram').value.trim(),owner:document.getElementById('proj-input-owner').value.trim(),contact:document.getElementById('proj-input-contact').value.trim(),startDate:document.getElementById('proj-input-start').value||today,deadline:document.getElementById('proj-input-deadline').value||today,status:'active',created:Date.now()};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(user)await setDoc(doc(db,'artifacts',appId,'users',user.uid,'projects',project.id),project);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>else{allProjectsData.push(project);localStorage.setItem('folluther_projects',JSON.stringify(allProjectsData));proj_renderAll();}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>['name','brand','website','instagram','owner','contact','start','deadline'].forEach(f=&gt;document.getElementById(`proj-input-${f}`).value='');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>showToast("PROJECT DIBUAT");</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p1"><span class="s1">window.proj_markComplete=async id=&gt;{const p=allProjectsData.find(x=&gt;x.id===id);if(!p)return;p.status='complete';if(user)await setDoc(doc(db,'artifacts',appId,'users',user.uid,'projects',id),p);else{localStorage.setItem('folluther_projects',JSON.stringify(allProjectsData));proj_renderAll();}showToast("PROJECT SELESAI");};</span></p>
+<p class="p1"><span class="s1">window.proj_reactivate=async id=&gt;{const p=allProjectsData.find(x=&gt;x.id===id);if(!p)return;p.status='active';if(user)await setDoc(doc(db,'artifacts',appId,'users',user.uid,'projects',id),p);else{localStorage.setItem('folluther_projects',JSON.stringify(allProjectsData));proj_renderAll();}showToast("DIAKTIFKAN KEMBALI");};</span></p>
+<p class="p1"><span class="s1">window.proj_deleteProject=async id=&gt;{if(user)await deleteDoc(doc(db,'artifacts',appId,'users',user.uid,'projects',id));else{allProjectsData=allProjectsData.filter(x=&gt;x.id!==id);localStorage.setItem('folluther_projects',JSON.stringify(allProjectsData));proj_renderAll();}showToast("PROJECT DIHAPUS");};</span></p>
+<p class="p1"><span class="s1">window.proj_renderAll=()=&gt;{proj_renderCalendar();proj_renderProjectCards();proj_renderCharts();proj_checkWarnings();};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">window.proj_renderCalendar=()=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const grid=document.getElementById('proj-calendar-grid');if(!grid)return;grid.innerHTML='';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const year=proj_calViewDate.getFullYear(),month=proj_calViewDate.getMonth();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('proj-cal-title').innerText=new Intl.DateTimeFormat('id-ID',{month:'long'}).format(proj_calViewDate).toUpperCase()+' '+year;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const daysInMonth=new Date(year,month+1,0).getDate();let firstDow=new Date(year,month,1).getDay();firstDow=firstDow===0?6:firstDow-1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const today=todayStr();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>for(let i=0;i&lt;firstDow;i++)grid.appendChild(document.createElement('div'));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>for(let day=1;day&lt;=daysInMonth;day++){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const dk=`${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const activeOnDay=allProjectsData.filter(p=&gt;p.status==='active'&amp;&amp;dk&gt;=p.startDate&amp;&amp;dk&lt;=p.deadline);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const completeOnDay=allProjectsData.filter(p=&gt;p.status==='complete'&amp;&amp;dk&lt;=p.deadline&amp;&amp;dk&gt;=p.startDate);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const urgentOnDay=activeOnDay.filter(p=&gt;isUrgent(p)||isOverdue(p));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const lateStartOnDay=activeOnDay.filter(p=&gt;isLateStart(p));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const cell=document.createElement('div');cell.className='proj-cal-day';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if(dk===today)cell.classList.add('proj-today');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if(urgentOnDay.length&gt;0||lateStartOnDay.length&gt;0)cell.classList.add('proj-has-urgent');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>else if(activeOnDay.length&gt;0)cell.classList.add('proj-has-active');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const numSpan=document.createElement('span');numSpan.textContent=day;cell.appendChild(numSpan);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const allOnDay=[...activeOnDay,...completeOnDay];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if(allOnDay.length&gt;0){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const dr=document.createElement('div');dr.className='proj-dot-row';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>allOnDay.slice(0,4).forEach(p=&gt;{const dot=document.createElement('span');dot.className='proj-dot';dot.style.background=p.status==='complete'?'var(--teal)':(isUrgent(p)||isOverdue(p)||isLateStart(p))?'var(--red)':'var(--amber)';dr.appendChild(dot);});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>cell.appendChild(dr);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const tip=document.createElement('div');tip.className='proj-cal-tooltip';tip.textContent=allOnDay.map(p=&gt;p.name).join(' · ');cell.appendChild(tip);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>cell.addEventListener('click',()=&gt;{const n=allOnDay.map(p=&gt;p.name).join(', ');if(n)showToast(n.length&gt;40?n.substring(0,37)+'...':n);});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>grid.appendChild(cell);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p1"><span class="s1">window.proj_renderProjectCards=()=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const ac=document.getElementById('proj-active-container'),cc=document.getElementById('proj-complete-container'),ae=document.getElementById('proj-active-empty');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!ac||!cc)return;ac.innerHTML='';cc.innerHTML='';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const active=allProjectsData.filter(p=&gt;p.status==='active').sort((a,b)=&gt;new Date(a.deadline)-new Date(b.deadline));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const complete=allProjectsData.filter(p=&gt;p.status==='complete').sort((a,b)=&gt;b.created-a.created);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('proj-active-count').innerText=active.length;document.getElementById('proj-complete-count').innerText=complete.length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(ae)ae.classList.toggle('hidden',active.length&gt;0);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>active.forEach(p=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const dl=daysDiff(todayStr(),p.deadline),urg=isUrgent(p)||isOverdue(p),late=isLateStart(p);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const total=Math.max(1,daysDiff(p.startDate,p.deadline)),elapsed=Math.max(0,daysDiff(p.startDate,todayStr()));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const pct=Math.min(100,Math.round((elapsed/total)*100));const barColor=urg?'var(--red)':pct&gt;70?'var(--amber)':'var(--teal)';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const card=document.createElement('div');card.className=`proj-card ${urg?'proj-card-urgent':'proj-card-active'}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>card.innerHTML=`&lt;div class="flex justify-between items-start gap-2"&gt;&lt;div class="flex-1 min-w-0"&gt;&lt;h4 class="syne font-bold text-sm text-amber-400 uppercase leading-tight truncate"&gt;${p.name}&lt;/h4&gt;&lt;p class="text-[9px] text-muted font-bold mt-0.5 uppercase"&gt;${p.brand}${p.owner?' · '+p.owner:''}&lt;/p&gt;&lt;/div&gt;&lt;div class="flex flex-col items-end gap-1 flex-shrink-0"&gt;${urg?`&lt;span class="proj-badge proj-badge-urgent proj-badge-blink"&gt;&amp;#9888; URGENT&lt;/span&gt;`:`&lt;span class="proj-badge proj-badge-active"&gt;ACTIVE&lt;/span&gt;`}${late&amp;&amp;!urg?`&lt;span class="proj-badge proj-badge-late"&gt;&amp;#9888; BELUM DIMULAI&lt;/span&gt;`:''}&lt;/div&gt;&lt;/div&gt;&lt;div class="flex flex-wrap gap-2 mt-2"&gt;${p.website?`&lt;a href="${p.website}" target="_blank" class="ref-link-btn"&gt;&amp;#128279; WEBSITE&lt;/a&gt;`:''}${p.instagram?`&lt;a href="${p.instagram}" target="_blank" class="ref-link-btn"&gt;&amp;#128247; INSTAGRAM&lt;/a&gt;`:''}${p.contact?`&lt;a href="https://wa.me/${p.contact.replace(/\D/g,'')}" target="_blank" class="ref-link-btn"&gt;&amp;#128172; WA ${p.contact}&lt;/a&gt;`:''}&lt;/div&gt;&lt;div class="mt-3 border-t border-white/5 pt-3"&gt;&lt;div class="flex justify-between items-center mb-1"&gt;&lt;span class="text-[8px] text-muted font-bold uppercase"&gt;Start: ${p.startDate} &amp;#8594; Deadline: ${p.deadline}&lt;/span&gt;&lt;span class="text-[9px] font-bold ${dl&lt;0?'text-red-400':urg?'text-amber-400':'text-money'}"&gt;${dl&lt;0?'TERLAMBAT '+Math.abs(dl)+' hari':dl===0?'HARI INI!':dl+' hari lagi'}&lt;/span&gt;&lt;/div&gt;&lt;div class="proj-deadline-bar-bg"&gt;&lt;div class="proj-deadline-bar-fill" style="width:${pct}%;background:${barColor};"&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="flex justify-between items-center mt-1"&gt;&lt;span class="text-[8px] text-muted"&gt;${pct}% waktu berlalu&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class="flex justify-end gap-2 mt-3"&gt;&lt;button onclick="proj_markComplete('${p.id}')" class="bg-teal-400 text-black px-3 py-1.5 rounded-lg text-[9px] font-black uppercase transition-all active:scale-95"&gt;&amp;#10003; COMPLETE&lt;/button&gt;&lt;button onclick="proj_deleteProject('${p.id}')" class="btn-delete"&gt;DEL&lt;/button&gt;&lt;/div&gt;`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>ac.appendChild(card);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>complete.forEach(p=&gt;{const card=document.createElement('div');card.className='proj-card proj-card-done flex items-center justify-between gap-4';card.innerHTML=`&lt;div class="flex-1 min-w-0"&gt;&lt;h4 class="syne font-bold text-xs line-through text-muted truncate"&gt;${p.name}&lt;/h4&gt;&lt;p class="text-[8px] text-muted uppercase font-bold mt-0.5"&gt;${p.brand} · Selesai ${p.deadline}&lt;/p&gt;&lt;/div&gt;&lt;div class="flex gap-2 flex-shrink-0"&gt;&lt;button onclick="proj_reactivate('${p.id}')" class="bg-white/5 border border-white/10 px-3 py-1 rounded-lg text-[8px] font-black uppercase hover:bg-white/10 transition-all"&gt;&amp;#8617; Reactivate&lt;/button&gt;&lt;button onclick="proj_deleteProject('${p.id}')" class="btn-delete"&gt;DEL&lt;/button&gt;&lt;/div&gt;`;cc.appendChild(card);});</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p1"><span class="s1">window.proj_renderCharts=()=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const active=allProjectsData.filter(p=&gt;p.status==='active'),done=allProjectsData.filter(p=&gt;p.status==='complete'),urgentCount=active.filter(p=&gt;isUrgent(p)||isOverdue(p)).length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(proj_statusChart){proj_statusChart.data.datasets[0].data=[active.length,done.length,urgentCount];proj_statusChart.update();}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('proj-total-count').innerText=allProjectsData.length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('proj-stat-active').innerText=active.length;document.getElementById('proj-stat-complete').innerText=done.length;document.getElementById('proj-stat-urgent').innerText=urgentCount;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const ge=document.getElementById('proj-gantt-empty');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(proj_ganttChart){const sl=active.slice(0,6);if(!sl.length){proj_ganttChart.canvas.style.display='none';if(ge)ge.classList.remove('hidden');}else{if(ge)ge.classList.add('hidden');proj_ganttChart.canvas.style.display='';const dur=sl.map(p=&gt;Math.max(1,daysDiff(p.startDate,p.deadline)));proj_ganttChart.data.labels=sl.map(p=&gt;p.name.length&gt;16?p.name.substring(0,14)+'…':p.name);proj_ganttChart.data.datasets[0].data=dur;proj_ganttChart.data.datasets[0].backgroundColor=sl.map(p=&gt;(isUrgent(p)||isOverdue(p))?'#ff5f6d':'#f5c542');proj_ganttChart.options.scales.x.max=Math.max(...dur)+2;proj_ganttChart.update();}}</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p1"><span class="s1">window.proj_checkWarnings=()=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(proj_urgentToastShown||document.getElementById('view-project').classList.contains('hidden'))return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const ul=allProjectsData.filter(p=&gt;p.status==='active'&amp;&amp;(isUrgent(p)||isOverdue(p)||isLateStart(p)));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(ul.length&gt;0){proj_urgentToastShown=true;setTimeout(()=&gt;showToast(`${ul.length} PROJECT BUTUH PERHATIAN!`),400);}</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* ===== BRAND REACH ===== */</span></p>
+<p class="p1"><span class="s1">window.br_autoFollow=()=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const dv=document.getElementById('br-f-date').value;if(!dv)return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const d=new Date(dv+'T00:00:00');d.setDate(d.getDate()+4);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('br-f-follow').value=d.toISOString().split('T')[0];</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p1"><span class="s1">window.br_openForm=(id)=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>br_editId=id||null;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const modal=document.getElementById('br-form-modal');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('br-form-title').innerText=id?'EDIT BRAND':'TAMBAH BRAND';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(id){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const b=allBrandsData.find(x=&gt;x.id===id);if(!b)return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById('br-f-name').value=b.name||'';document.getElementById('br-f-person').value=b.person||'';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById('br-f-loc').value=b.loc||'';document.getElementById('br-f-website').value=b.website||'';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById('br-f-instagram').value=b.instagram||'';document.getElementById('br-f-contact').value=b.contact||'';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById('br-f-date').value=b.date||'';document.getElementById('br-f-follow').value=b.follow||'';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById('br-f-status').value=b.status||'new';document.getElementById('br-f-notes').value=b.notes||'';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}else{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>['br-f-name','br-f-person','br-f-loc','br-f-website','br-f-instagram','br-f-contact','br-f-date','br-f-follow','br-f-notes'].forEach(i=&gt;document.getElementById(i).value='');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>document.getElementById('br-f-status').value='new';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>modal.style.display='flex';</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p1"><span class="s1">window.br_closeForm=()=&gt;{document.getElementById('br-form-modal').style.display='none';br_editId=null;};</span></p>
+<p class="p1"><span class="s1">window.br_saveForm=async()=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const name=document.getElementById('br-f-name').value.trim();if(!name){showToast("NAMA BRAND WAJIB DIISI");return;}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const id=br_editId||crypto.randomUUID();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const brand={id,name,person:document.getElementById('br-f-person').value.trim(),loc:document.getElementById('br-f-loc').value.trim(),website:document.getElementById('br-f-website').value.trim(),instagram:document.getElementById('br-f-instagram').value.trim(),contact:document.getElementById('br-f-contact').value.trim(),date:document.getElementById('br-f-date').value,follow:document.getElementById('br-f-follow').value,status:document.getElementById('br-f-status').value,notes:document.getElementById('br-f-notes').value.trim(),created:br_editId?(allBrandsData.find(x=&gt;x.id===br_editId)?.created||Date.now()):Date.now()};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(user)await setDoc(doc(db,'artifacts',appId,'users',user.uid,'brands',id),brand);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>else{const i=allBrandsData.findIndex(x=&gt;x.id===id);if(i&gt;-1)allBrandsData[i]=brand;else allBrandsData.push(brand);localStorage.setItem('folluther_brands',JSON.stringify(allBrandsData));br_renderAll();}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>br_closeForm();showToast(br_editId?'BRAND DIUPDATE':'BRAND DITAMBAHKAN');</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p1"><span class="s1">window.br_deleteBrand=async id=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(user)await deleteDoc(doc(db,'artifacts',appId,'users',user.uid,'brands',id));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>else{allBrandsData=allBrandsData.filter(x=&gt;x.id!==id);localStorage.setItem('folluther_brands',JSON.stringify(allBrandsData));br_renderAll();}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>showToast("BRAND DIHAPUS");</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p1"><span class="s1">window.br_setFilter=f=&gt;{br_activeFilter=f;document.querySelectorAll('.filter-pill').forEach(p=&gt;p.classList.toggle('active',p.dataset.fp===f));brand_renderTable();};</span></p>
+<p class="p1"><span class="s1">window.br_setSort=(k)=&gt;{if(br_sortKey===k)br_sortDir=br_sortDir==='asc'?'desc':'asc';else{br_sortKey=k;br_sortDir='asc';}brand_renderTable();};</span></p>
+<p class="p1"><span class="s1">window.br_renderAll=()=&gt;{br_renderStats();br_renderCalendar();brand_renderTable();br_updateLocFilter();};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">function br_renderStats(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const today=todayStr();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('br-stat-total').innerText=allBrandsData.length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('br-stat-contacted').innerText=allBrandsData.filter(b=&gt;['contacted','follow','replied'].includes(b.status)).length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('br-stat-follow').innerText=allBrandsData.filter(b=&gt;b.follow&amp;&amp;b.follow&lt;=today&amp;&amp;!['closed','rejected','ghost'].includes(b.status)).length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>document.getElementById('br-stat-closed').innerText=allBrandsData.filter(b=&gt;b.status==='closed').length;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const overdue=allBrandsData.filter(b=&gt;b.follow&amp;&amp;b.follow&lt;today&amp;&amp;!['closed','rejected','ghost'].includes(b.status));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const badge=document.getElementById('br-warning-badge');if(badge)badge.classList.toggle('hidden',overdue.length===0);</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">function br_updateLocFilter(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const sel=document.getElementById('br-loc-filter');if(!sel)return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const cur=sel.value,locs=[...new Set(allBrandsData.map(b=&gt;b.loc).filter(Boolean))].sort();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>sel.innerHTML='&lt;option value="all"&gt;Semua Lokasi&lt;/option&gt;';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>locs.forEach(l=&gt;{const o=document.createElement('option');o.value=l;o.textContent=l;if(l===cur)o.selected=true;sel.appendChild(o);});</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">function br_renderCalendar(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const grid=document.getElementById('br-calendar-grid');if(!grid)return;grid.innerHTML='';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const year=br_calViewDate.getFullYear(),month=br_calViewDate.getMonth();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const title=document.getElementById('br-cal-title');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(title)title.innerText=new Intl.DateTimeFormat('id-ID',{month:'long'}).format(br_calViewDate).toUpperCase()+' '+year;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const daysInMonth=new Date(year,month+1,0).getDate();let firstDow=new Date(year,month,1).getDay();firstDow=firstDow===0?6:firstDow-1;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const today=todayStr();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>for(let i=0;i&lt;firstDow;i++)grid.appendChild(document.createElement('div'));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>for(let day=1;day&lt;=daysInMonth;day++){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const dk=`${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const reaches=allBrandsData.filter(b=&gt;b.date===dk);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const follows=allBrandsData.filter(b=&gt;b.follow===dk);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const overdue=follows.filter(b=&gt;dk&lt;today&amp;&amp;!['closed','rejected','ghost'].includes(b.status));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const cell=document.createElement('div');cell.className='br-cal-day';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if(dk===today)cell.classList.add('br-today');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if(overdue.length&gt;0)cell.classList.add('br-has-overdue');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>else if(follows.length&gt;0)cell.classList.add('br-has-follow');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>else if(reaches.length&gt;0)cell.classList.add('br-has-reach');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const num=document.createElement('span');num.textContent=day;cell.appendChild(num);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const all=[...new Map([...reaches,...follows].map(b=&gt;[b.id,b])).values()];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if(all.length&gt;0){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const dr=document.createElement('div');dr.className='br-dot-row';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>all.slice(0,5).forEach(b=&gt;{const dot=document.createElement('span');dot.className='br-dot';const isOD=b.follow===dk&amp;&amp;dk&lt;today&amp;&amp;!['closed','rejected','ghost'].includes(b.status);dot.style.background=isOD?'var(--red)':b.follow===dk?'var(--amber)':'var(--teal)';dr.appendChild(dot);});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>cell.appendChild(dr);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const tip=document.createElement('div');tip.className='br-cal-tooltip';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>tip.textContent=[...reaches.map(b=&gt;'</span><span class="s3">📤</span><span class="s1"> '+b.name),...follows.map(b=&gt;'</span><span class="s3">🔔</span><span class="s1"> '+b.name)].join(' · ');cell.appendChild(tip);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>cell.addEventListener('click',()=&gt;{const names=[...reaches.map(b=&gt;'Reach: '+b.name),...follows.map(b=&gt;'Follow: '+b.name)].join(' | ');if(names)showToast(names.length&gt;50?names.substring(0,47)+'...':names);});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>grid.appendChild(cell);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">window.brand_renderTable=()=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const tbody=document.getElementById('brand-table-body'),emptyMsg=document.getElementById('brand-empty-msg');if(!tbody)return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const today=todayStr();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const search=(document.getElementById('br-search')?.value||'').toLowerCase();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const locF=document.getElementById('br-loc-filter')?.value||'all';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>let data=[...allBrandsData];</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(br_activeFilter!=='all')data=data.filter(b=&gt;b.status===br_activeFilter);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(search)data=data.filter(b=&gt;(b.name+b.person+b.loc+(b.notes||'')).toLowerCase().includes(search));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(locF!=='all')data=data.filter(b=&gt;b.loc===locF);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const km={name:'name',person:'person',loc:'loc',date:'date',follow:'follow',status:'status'};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const k=km[br_sortKey]||'date';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>data.sort((a,b)=&gt;{const av=a[k]||'',bv=b[k]||'';return br_sortDir==='asc'?av.localeCompare(bv):bv.localeCompare(av);});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(data.length===0){tbody.innerHTML='';if(emptyMsg)emptyMsg.classList.remove('hidden');return;}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(emptyMsg)emptyMsg.classList.add('hidden');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>tbody.innerHTML=data.map(b=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const sm=BR_STATUS[b.status]||BR_STATUS.new;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const isOD=b.follow&amp;&amp;b.follow&lt;today&amp;&amp;!['closed','rejected','ghost'].includes(b.status);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const isToday=b.follow===today&amp;&amp;!['closed','rejected','ghost'].includes(b.status);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>let fTxt=b.follow||'—',fCls='';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>if(isOD){fCls='br-overdue-anim';fTxt+=' ⚠';}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>else if(isToday){fCls='font-black text-amber-400';fTxt+=' </span><span class="s3">🔔</span><span class="s1">';}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>return `&lt;tr class="${isOD?'br-overdue-row':''}"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;td&gt;&lt;div class="font-bold text-xs"&gt;${b.name}&lt;/div&gt;${b.notes?`&lt;div class="text-[9px] text-muted mt-0.5 max-w-[200px] truncate"&gt;${b.notes}&lt;/div&gt;`:''}&lt;/td&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;td class="text-[10px] text-muted"&gt;${b.person||'—'}&lt;/td&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;td class="text-[10px] text-muted"&gt;${b.loc||'—'}&lt;/td&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;td&gt;${b.website?`&lt;a href="${b.website}" target="_blank" class="ref-link-btn" style="margin-top:0;font-size:8px;padding:2px 6px"&gt;</span><span class="s3">🔗</span><span class="s1"> Web&lt;/a&gt;`:'&lt;span class="text-[9px] text-muted"&gt;—&lt;/span&gt;'}&lt;/td&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;td&gt;${b.instagram?`&lt;a href="${b.instagram}" target="_blank" class="ref-link-btn" style="margin-top:0;font-size:8px;padding:2px 6px"&gt;</span><span class="s3">📸</span><span class="s1"> IG&lt;/a&gt;`:'&lt;span class="text-[9px] text-muted"&gt;—&lt;/span&gt;'}&lt;/td&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;td class="text-[10px]"&gt;${b.date||'—'}&lt;/td&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;td class="text-[10px] ${fCls}"&gt;${fTxt}&lt;/td&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;td&gt;&lt;span class="br-badge ${sm.cls}"&gt;${sm.label}&lt;/span&gt;&lt;/td&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;td&gt;&lt;div class="flex gap-1.5 justify-end"&gt;&lt;button onclick="br_openForm('${b.id}')" class="bg-white/5 border border-white/10 text-[8px] font-black uppercase px-2 py-1 rounded hover:bg-white/10"&gt;EDIT&lt;/button&gt;&lt;button onclick="br_deleteBrand('${b.id}')" class="btn-delete"&gt;DEL&lt;/button&gt;&lt;/div&gt;&lt;/td&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/tr&gt;`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>}).join('');</span></p>
+<p class="p1"><span class="s1">};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* also expose old name for backward compat */</span></p>
+<p class="p1"><span class="s1">window.brand_openForm = window.br_openForm;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* ===== CHARTS ===== */</span></p>
+<p class="p1"><span class="s1">function initCharts(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>mainChart=new Chart(document.getElementById('mainRing').getContext('2d'),{type:'doughnut',data:{datasets:[{data:[0,100],backgroundColor:['#f5c542','rgba(255,255,255,0.03)'],borderWidth:0,borderRadius:20}]},options:{cutout:'80%',plugins:{tooltip:{enabled:false}},responsive:true,maintainAspectRatio:false}});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>spiritChart=new Chart(document.getElementById('spiritChart').getContext('2d'),{type:'line',data:{labels:[],datasets:[{data:[],borderColor:'#a78bfa',backgroundColor:'rgba(167,139,250,0.1)',borderWidth:3,pointRadius:2,tension:0.4,fill:true}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{display:false,beginAtZero:true,max:100},x:{grid:{display:false},ticks:{color:'#62627a',font:{size:9}}}}}});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>revenueChart=new Chart(document.getElementById('revenueChart').getContext('2d'),{type:'bar',data:{labels:['MONTHLY GOAL'],datasets:[{data:[0],backgroundColor:'#4ade80',borderRadius:20,barThickness:40}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,max:MONTHLY_REVENUE_GOAL,grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'#62627a'}},y:{display:false}}}});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>radarChart=new Chart(document.getElementById('radarChart').getContext('2d'),{type:'radar',data:{labels:['Money','Creation','Growth','System'],datasets:[{data:[0,0,0,0],borderColor:'#a78bfa',backgroundColor:'rgba(167,139,250,0.2)',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{r:{angleLines:{color:'rgba(255,255,255,0.05)'},grid:{color:'rgba(255,255,255,0.1)'},pointLabels:{color:'#62627a',font:{size:9}},ticks:{display:false}}}}});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>proj_ganttChart=new Chart(document.getElementById('proj-gantt-chart').getContext('2d'),{type:'bar',data:{labels:[],datasets:[{label:'Durasi',data:[],backgroundColor:[],borderRadius:4}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'#62627a',font:{size:9}}},y:{grid:{display:false},ticks:{color:'#f0efea',font:{size:10}}}}}});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>proj_statusChart=new Chart(document.getElementById('proj-status-chart').getContext('2d'),{type:'doughnut',data:{datasets:[{data:[0,0,0],backgroundColor:['#f5c542','#00e5a0','#ff5f6d'],borderWidth:0,borderRadius:4}]},options:{cutout:'78%',plugins:{tooltip:{enabled:false}},responsive:true,maintainAspectRatio:false}});</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">function updateSpiritChart(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!spiritChart)return;const d=new Date(viewDate),m=d.getMonth(),y=d.getFullYear(),days=new Date(y,m+1,0).getDate();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const labels=Array.from({length:days},(_,i)=&gt;i+1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const data=labels.map(day=&gt;{const k=`${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;return allDaysData[k]?(allDaysData[k].done.length/TASKS.length)*100:0;});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>spiritChart.data.labels=labels;spiritChart.data.datasets[0].data=data;spiritChart.update();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">function renderTaskItems(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>TASKS.forEach(t=&gt;{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const div=document.createElement('div');div.className="task-item flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 cursor-pointer";div.dataset.id=t.id;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>div.innerHTML=`&lt;div class="checkbox-custom mt-0.5"&gt;&lt;/div&gt;&lt;span class="text-sm font-medium leading-tight"&gt;${t.text}&lt;/span&gt;`;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>div.onclick=()=&gt;toggleTask(t.id);const c=document.getElementById('cat-'+t.cat);if(c)c.appendChild(div);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">function startClocks(){</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const tick=()=&gt;{const now=new Date();if(document.getElementById('clock-jkt'))document.getElementById('clock-jkt').innerText=now.toLocaleTimeString('en-GB',{timeZone:'Asia/Jakarta'});if(document.getElementById('clock-usa'))document.getElementById('clock-usa').innerText=now.toLocaleTimeString('en-GB',{timeZone:'America/New_York'});};setInterval(tick,1000);tick();</span></p>
+<p class="p1"><span class="s1">}</span></p>
+<p class="p1"><span class="s1">function showToast(msg){const t=document.getElementById('toast');t.innerText=msg;t.style.opacity=1;setTimeout(()=&gt;t.style.opacity=0,2500);}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">/* nav buttons */</span></p>
+<p class="p1"><span class="s1">document.getElementById('proj-cal-prev').addEventListener('click',()=&gt;{proj_calViewDate=new Date(proj_calViewDate.getFullYear(),proj_calViewDate.getMonth()-1,1);proj_renderCalendar();});</span></p>
+<p class="p1"><span class="s1">document.getElementById('proj-cal-next').addEventListener('click',()=&gt;{proj_calViewDate=new Date(proj_calViewDate.getFullYear(),proj_calViewDate.getMonth()+1,1);proj_renderCalendar();});</span></p>
+<p class="p1"><span class="s1">document.getElementById('br-cal-prev').addEventListener('click',()=&gt;{br_calViewDate=new Date(br_calViewDate.getFullYear(),br_calViewDate.getMonth()-1,1);br_renderCalendar();});</span></p>
+<p class="p1"><span class="s1">document.getElementById('br-cal-next').addEventListener('click',()=&gt;{br_calViewDate=new Date(br_calViewDate.getFullYear(),br_calViewDate.getMonth()+1,1);br_renderCalendar();});</span></p>
+<p class="p1"><span class="s1">/* close modals on backdrop click */</span></p>
+<p class="p1"><span class="s1">document.getElementById('br-form-modal').addEventListener('click',e=&gt;{if(e.target===document.getElementById('br-form-modal'))br_closeForm();});</span></p>
+<p class="p1"><span class="s1">document.getElementById('name-modal').addEventListener('click',e=&gt;{if(e.target===document.getElementById('name-modal'))closeModal();});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">window.onload=init;</span></p>
+<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
